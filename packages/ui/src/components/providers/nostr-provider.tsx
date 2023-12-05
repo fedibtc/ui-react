@@ -1,73 +1,73 @@
-"use client";
-import NDK, { NDKNip07Signer, NDKUser } from "@nostr-dev-kit/ndk";
-import { createContext, useContext, useEffect, useState } from "react";
+"use client"
+import NDK, { NDKNip07Signer, NDKUser } from "@nostr-dev-kit/ndk"
+import { createContext, useContext, useEffect, useState } from "react"
 
-export const RELAYS = ["wss://relay.snort.social", "wss://nos.lol"];
+export const RELAYS = ["wss://relay.snort.social", "wss://nos.lol"]
 
 export interface NostrContextResult {
   /**
    * A connected instance of the Nostr Dev Kit class
    */
-  ndk: NDK | undefined;
+  ndk: NDK | undefined
   /**
    * An NDKUser instance representing the current user over `window.nostr`
    */
-  user: NDKUser | undefined;
+  user: NDKUser | undefined
   /**
    * Whether the Nostr connection is loading
    */
-  isLoading: boolean;
+  isLoading: boolean
   /**
    * If an error occurred in attempt to connect to Nostr.
    */
-  error: Error | null;
+  error: Error | null
 }
 
 interface NostrPending extends NostrContextResult {
-  ndk: undefined;
-  user: undefined;
-  isLoading: true;
-  error: null;
+  ndk: undefined
+  user: undefined
+  isLoading: true
+  error: null
 }
 
 interface NostrErrorResult extends NostrContextResult {
-  ndk: undefined;
-  user: undefined;
-  isLoading: false;
-  error: Error;
+  ndk: undefined
+  user: undefined
+  isLoading: false
+  error: Error
 }
 
 interface NostrSuccessResult extends NostrContextResult {
-  ndk: NDK;
-  user: NDKUser;
-  isLoading: false;
-  error: null;
+  ndk: NDK
+  user: NDKUser
+  isLoading: false
+  error: null
 }
 
-type NostrProviderType = NostrPending | NostrErrorResult | NostrSuccessResult;
+type NostrProviderType = NostrPending | NostrErrorResult | NostrSuccessResult
 
-export const NostrContext = createContext<NostrProviderType | null>(null);
+export const NostrContext = createContext<NostrProviderType | null>(null)
 
 /**
  * Connects to `window.nostr`, initializing and exposing `user` and `ndk` through `NostrConnectionContext`.
  */
 export function NostrProvider({ children }: { children: React.ReactNode }) {
   const [data, setData] = useState<{ user: NDKUser; ndk: NDK } | undefined>(
-    undefined,
-  );
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
+    undefined
+  )
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState<Error | null>(null)
 
   useEffect(() => {
     async function init() {
       try {
-        const signer = new NDKNip07Signer();
+        const signer = new NDKNip07Signer()
         const ndk = new NDK({
           explicitRelayUrls: RELAYS,
-          signer,
-        });
+          signer
+        })
 
-        await ndk.connect(2500);
+        await ndk.connect(2500)
 
         if (
           "nostr" in window &&
@@ -80,21 +80,21 @@ export function NostrProvider({ children }: { children: React.ReactNode }) {
               window.nostr.isEnabled) ||
             ("_isEnabled" in window?.nostr && window.nostr?._isEnabled))
         ) {
-          const user = await signer.user();
+          const user = await signer.user()
 
-          document.cookie = "npub=" + user.npub;
-          setData({ user, ndk });
-          setIsLoading(false);
+          document.cookie = "npub=" + user.npub
+          setData({ user, ndk })
+          setIsLoading(false)
         } else {
-          throw new Error("Could not connect to Nostr");
+          throw new Error("Could not connect to Nostr")
         }
       } catch (err) {
-        setError(err as Error);
-        setIsLoading(false);
+        setError(err as Error)
+        setIsLoading(false)
       }
     }
-    init();
-  }, []);
+    init()
+  }, [])
 
   return (
     <NostrContext.Provider
@@ -103,50 +103,50 @@ export function NostrProvider({ children }: { children: React.ReactNode }) {
           user: data?.user,
           ndk: data?.ndk,
           isLoading,
-          error,
+          error
         } as NostrProviderType
       }
     >
       {children}
     </NostrContext.Provider>
-  );
+  )
 }
 
 /**
  * Returnes the value of `NostrContext`. Throws an error if not used within a NostrProvider.
  */
 export function useNDKContext(): NostrProviderType {
-  const res = useContext(NostrContext);
+  const res = useContext(NostrContext)
 
   if (res === null) {
-    throw new Error("useNDKContext must be used within a NostrProvider");
+    throw new Error("useNDKContext must be used within a NostrProvider")
   }
 
-  return res;
+  return res
 }
 
 /**
  * Returns a Nostr NDK instance. Throws an error if not used in a NostrProvider or if not initialized.
  */
 export function useNDK(): NDK {
-  const res = useNDKContext();
+  const res = useNDKContext()
 
   if (typeof res.ndk === "undefined") {
-    throw new Error("Nostr provider is not connected");
+    throw new Error("Nostr provider is not connected")
   }
 
-  return res.ndk;
+  return res.ndk
 }
 
 /**
  * Returns an NDKUser instance representing the current user over `window.nostr`. Throws an error if not used in a NostrProvider or if not initialized.
  */
 export function useNDKUser(): NDKUser {
-  const res = useNDKContext();
+  const res = useNDKContext()
 
   if (typeof res.user === "undefined") {
-    throw new Error("Nostr provider is not connected");
+    throw new Error("Nostr provider is not connected")
   }
 
-  return res.user;
+  return res.user
 }

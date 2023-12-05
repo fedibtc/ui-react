@@ -1,7 +1,7 @@
-import { cn } from "../../../lib/utils";
-import { type VariantProps } from "class-variance-authority";
-import * as React from "react";
-import { ZodObject, z } from "zod";
+import { cn } from "../../../lib/utils"
+import { type VariantProps } from "class-variance-authority"
+import * as React from "react"
+import { ZodObject, z } from "zod"
 
 // An available HTML tag
 type Tag =
@@ -12,7 +12,7 @@ type Tag =
   | "label"
   | "div"
   | "span"
-  | "form";
+  | "form"
 
 // Reflects a Tag to its HTML element type
 type Element<T extends Tag> = T extends "input"
@@ -31,7 +31,7 @@ type Element<T extends Tag> = T extends "input"
               ? HTMLSpanElement
               : T extends "form"
                 ? HTMLFormElement
-                : never;
+                : never
 
 // The attributes for a given HTML element
 type Attributes<T extends HTMLElement> = T extends HTMLInputElement
@@ -44,29 +44,29 @@ type Attributes<T extends HTMLElement> = T extends HTMLInputElement
         ? React.ImgHTMLAttributes<T>
         : T extends HTMLFormElement
           ? React.FormHTMLAttributes<T>
-          : React.HTMLAttributes<T>;
+          : React.HTMLAttributes<T>
 
 // The props of a styled variant component
 type Props<
   T extends Tag,
-  V extends (...args: any) => any = () => {},
-> = Attributes<Element<T>> & VariantProps<V>;
+  V extends (...args: any) => any = () => {}
+> = Attributes<Element<T>> & VariantProps<V>
 
 // The render function within the styled util
 interface RenderFunction<
   T extends Tag,
   V extends (...args: any) => any,
-  S extends z.Schema,
+  S extends z.Schema
 > {
   (
     args: {
-      props: Props<T, V> & z.infer<S>;
-      ref: React.ForwardedRef<Element<T>> | React.LegacyRef<Element<T>>;
-      cn: (props: VariantProps<V> & { className?: string }) => string;
-      schema?: S;
+      props: Props<T, V> & z.infer<S>
+      ref: React.ForwardedRef<Element<T>> | React.LegacyRef<Element<T>>
+      cn: (props: VariantProps<V> & { className?: string }) => string
+      schema?: S
     },
-    displayName?: string,
-  ): React.ReactElement | null;
+    displayName?: string
+  ): React.ReactElement | null
 }
 
 /**
@@ -89,26 +89,26 @@ interface RenderFunction<
 export function styled<
   T extends Tag,
   V extends (...args: any) => any,
-  S extends z.Schema = ZodObject<{}>,
+  S extends z.Schema = ZodObject<{}>
 >(tag: T, variants: V, schema?: S) {
   return (callback: RenderFunction<T, V, S>, displayName?: string) => {
     const comp = React.forwardRef(
       (
         props: Props<T, V> & z.infer<S>,
-        ref: React.ForwardedRef<Element<typeof tag>>,
+        ref: React.ForwardedRef<Element<typeof tag>>
       ) => {
         return callback({
           props,
           ref,
           schema,
-          cn: (_props) => cn(variants(_props)),
-        });
-      },
-    );
+          cn: _props => cn(variants(_props))
+        })
+      }
+    )
+    comp.displayName = displayName || tag
 
-    comp.displayName = displayName || tag;
-    return comp;
-  };
+    return comp
+  }
 }
 
-export type Infer<T> = T extends React.ComponentType<infer P> ? P : never;
+export type Infer<T> = T extends React.ComponentType<infer P> ? P : never

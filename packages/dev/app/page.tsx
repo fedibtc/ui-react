@@ -1,5 +1,5 @@
-"use client";
-import { Button, Text } from "@fedibtc/ui";
+"use client"
+import { Button, Text } from "@fedibtc/ui"
 
 export default function Home() {
   return (
@@ -9,5 +9,5 @@ export default function Home() {
         Hi there!
       </Text>
     </main>
-  );
+  )
 }

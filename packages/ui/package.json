@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "description": "UI components for Fedi Mods",
   "scripts": {
-    "build": "rm -rf dist && tailwindcss -i ./src/components.css -o ./dist/components.css && cp -r ./src/fonts ./dist/fonts && tsup src/index.ts  --sourcemap --dts --format esm,cjs,iife --global-name fedibtc"
+    "build": "rm -rf dist && tailwindcss -i ./src/components.css -o ./dist/components.css && cp -r ./src/fonts ./dist/fonts && tsup src/index.ts  --sourcemap --dts --format esm,cjs,iife --global-name fedibtc",
+    "publish": "bun run build && npm publish",
+    "format": "prettier --write src/**/*.{ts,tsx}"
   },
   "devDependencies": {
     "@types/react": "^18",

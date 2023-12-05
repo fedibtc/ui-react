@@ -1,24 +1,24 @@
-import { Icon, IconKey } from "./icon";
-import stringUtils from "./utils/StringUtils";
-import { getIdentityColors } from "./utils/colors";
-import { styled } from "./utils/styled";
-import * as RadixAvatar from "@radix-ui/react-avatar";
-import { cva } from "class-variance-authority";
-import { useState } from "react";
-import { z } from "zod";
+import { Icon, IconKey } from "./icon"
+import stringUtils from "./utils/StringUtils"
+import { getIdentityColors } from "./utils/colors"
+import { styled } from "./utils/styled"
+import * as RadixAvatar from "@radix-ui/react-avatar"
+import { cva } from "class-variance-authority"
+import { useState } from "react"
+import { z } from "zod"
 
 export interface AvatarProps {
-  id: string;
-  src?: string;
-  name?: string;
-  icon?: IconKey;
-  size?: "xs" | "sm" | "md" | "lg";
-  shape?: "circle" | "square";
-  holo?: boolean;
-  className?: string;
+  id: string
+  src?: string
+  name?: string
+  icon?: IconKey
+  size?: "xs" | "sm" | "md" | "lg"
+  shape?: "circle" | "square"
+  holo?: boolean
+  className?: string
 }
 
-const iconSizes = { lg: "md", md: "sm", sm: "xs", xs: "xxs" } as const;
+const iconSizes = { lg: "md", md: "sm", sm: "xs", xs: "xxs" } as const
 
 /**
  * An Avatar component. Includes a fallback or holo background option.
@@ -34,8 +34,8 @@ export const Avatar: React.FC<AvatarProps> = ({
   className,
   ...props
 }) => {
-  const [bgColor, textColor] = getIdentityColors(id);
-  const [isFallback, setIsFallback] = useState(!src);
+  const [bgColor, textColor] = getIdentityColors(id)
+  const [isFallback, setIsFallback] = useState(!src)
 
   return (
     <Root
@@ -48,7 +48,7 @@ export const Avatar: React.FC<AvatarProps> = ({
           ? holo
             ? undefined
             : bgColor
-          : "transparent",
+          : "transparent"
       }}
       {...props}
     >
@@ -56,7 +56,7 @@ export const Avatar: React.FC<AvatarProps> = ({
         <Image
           src={src}
           alt=""
-          onLoadingStatusChange={(status) => setIsFallback(status === "error")}
+          onLoadingStatusChange={status => setIsFallback(status === "error")}
         />
       )}
       {name && isFallback && (
@@ -69,8 +69,8 @@ export const Avatar: React.FC<AvatarProps> = ({
         </Fallback>
       )}
     </Root>
-  );
-};
+  )
+}
 
 const Root = styled(
   "span",
@@ -82,45 +82,45 @@ const Root = styled(
           xs: "w-20 h-20 text-[8px]",
           sm: "w-[32px] h-[32px] text-tiny",
           md: "w-xxl h-xxl text-body",
-          lg: "w-[88px] h-[88px] text-h2",
+          lg: "w-[88px] h-[88px] text-h2"
         },
         shape: {
           circle: "rounded-full",
-          square: "rounded",
+          square: "rounded"
         },
         holo: {
-          true: "bg-holo-600",
-        },
+          true: "bg-holo-600"
+        }
       },
       compoundVariants: [
         {
           size: "sm",
           shape: "square",
-          className: "rounded",
+          className: "rounded"
         },
         {
           size: "md",
           shape: "square",
-          className: "rounded-md",
+          className: "rounded-md"
         },
         {
           size: "lg",
           shape: "square",
-          className: "rounded-lg",
-        },
+          className: "rounded-lg"
+        }
       ],
       defaultVariants: {
         size: "md",
-        shape: "circle",
-      },
-    },
-  ),
+        shape: "circle"
+      }
+    }
+  )
 )(({ props: { size, shape, holo, className, ...props }, cn }) => (
   <RadixAvatar.Root
     {...props}
     className={cn({ size, shape, holo, className })}
   />
-));
+))
 
 const Image = styled(
   "img",
@@ -128,12 +128,12 @@ const Image = styled(
   z.object({
     onLoadingStatusChange: z.function(
       z.tuple([z.enum(["idle", "loading", "loaded", "error"])]),
-      z.void(),
-    ),
-  }),
-)(({ props }) => <RadixAvatar.Image {...props} />);
+      z.void()
+    )
+  })
+)(({ props }) => <RadixAvatar.Image {...props} />)
 
 const Fallback = styled(
   "span",
-  cva("fklex items-center justify-center pointer-events-none user-select-none"),
-)(({ props }) => <RadixAvatar.Fallback {...props} />);
+  cva("fklex items-center justify-center pointer-events-none user-select-none")
+)(({ props }) => <RadixAvatar.Fallback {...props} />)

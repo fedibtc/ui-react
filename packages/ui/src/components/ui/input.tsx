@@ -1,24 +1,24 @@
-import { styled } from "./utils/styled";
-import { cn } from "../../lib/utils";
-import { cva } from "class-variance-authority";
-import { useCallback, useState } from "react";
-import { Text } from "./text";
+import { styled } from "./utils/styled"
+import { cn } from "../../lib/utils"
+import { cva } from "class-variance-authority"
+import { useCallback, useState } from "react"
+import { Text } from "./text"
 
 interface CustomProps {
-  value: string;
-  label?: React.ReactNode;
-  placeholder?: string;
-  disabled?: boolean;
-  width?: "auto" | "full";
-  textOverflow?: "clip" | "ellipsis";
-  adornment?: React.ReactNode;
+  value: string
+  label?: React.ReactNode
+  placeholder?: string
+  disabled?: boolean
+  width?: "auto" | "full"
+  textOverflow?: "clip" | "ellipsis"
+  adornment?: React.ReactNode
 }
 
 export type InputProps = CustomProps &
   Omit<
     React.InputHTMLAttributes<HTMLInputElement>,
     keyof CustomProps | "className"
-  >;
+  >
 
 /**
  * A styled <input> element
@@ -31,23 +31,23 @@ export function Input({
   adornment,
   ...inputProps
 }: InputProps) {
-  const [hasFocus, setHasFocus] = useState(false);
+  const [hasFocus, setHasFocus] = useState(false)
 
   const handleFocus = useCallback(
     (ev: React.FocusEvent<HTMLInputElement>) => {
-      setHasFocus(true);
-      if (onFocus) onFocus(ev);
+      setHasFocus(true)
+      if (onFocus) onFocus(ev)
     },
-    [onFocus],
-  );
+    [onFocus]
+  )
 
   const handleBlur = useCallback(
     (ev: React.FocusEvent<HTMLInputElement>) => {
-      setHasFocus(false);
-      if (onBlur) onBlur(ev);
+      setHasFocus(false)
+      if (onBlur) onBlur(ev)
     },
-    [onBlur],
-  );
+    [onBlur]
+  )
 
   return (
     <Container width={width}>
@@ -61,7 +61,7 @@ export function Input({
         {adornment}
       </InputWrap>
     </Container>
-  );
+  )
 }
 
 const Container = styled(
@@ -70,18 +70,18 @@ const Container = styled(
     variants: {
       width: {
         auto: "w-auto",
-        full: "w-full",
-      },
-    },
-  }),
+        full: "w-full"
+      }
+    }
+  })
 )(({ props: { width, className, ...props }, cn, ref }) => (
   <label {...props} className={cn({ width, className })} ref={ref} />
-));
+))
 
 export const Label: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
   className,
   ...props
-}) => <div {...props} className={cn("pb-xs pl-[6px]", className)} />;
+}) => <div {...props} className={cn("pb-xs pl-[6px]", className)} />
 
 const InputWrap = styled(
   "div",
@@ -90,14 +90,14 @@ const InputWrap = styled(
     {
       variants: {
         isFocused: {
-          true: "border-night",
+          true: "border-night"
         },
         isDisabled: {
-          true: "bg-extraLightGrey",
-        },
-      },
-    },
-  ),
+          true: "bg-extraLightGrey"
+        }
+      }
+    }
+  )
 )(({ props: { className, isFocused, isDisabled, ...props }, ref, cn }) => {
   return (
     <div
@@ -105,8 +105,8 @@ const InputWrap = styled(
       ref={ref}
       className={cn({ isFocused, isDisabled, className })}
     />
-  );
-});
+  )
+})
 
 const TextInput = styled(
   "input",
@@ -116,14 +116,14 @@ const TextInput = styled(
       variants: {
         textOverflow: {
           clip: "text-clip",
-          ellipsis: "truncate",
-        },
+          ellipsis: "truncate"
+        }
       },
       defaultVariants: {
-        textOverflow: "clip",
-      },
-    },
-  ),
+        textOverflow: "clip"
+      }
+    }
+  )
 )(({ props: { textOverflow, className, ...props }, ref, cn }) => (
   <input {...props} className={cn({ textOverflow, className })} ref={ref} />
-));
+))

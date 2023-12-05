@@ -1,9 +1,9 @@
-import { Icon, IconKey } from "./icon";
-import { styled } from "./utils/styled";
-import { cn } from "../../lib/utils";
-import { cva, type VariantProps } from "class-variance-authority";
-import Link, { LinkProps } from "next/link";
-import * as React from "react";
+import { Icon, IconKey } from "./icon"
+import { styled } from "./utils/styled"
+import { cn } from "../../lib/utils"
+import { cva, type VariantProps } from "class-variance-authority"
+import Link, { LinkProps } from "next/link"
+import * as React from "react"
 
 const buttonVariants = cva(
   "relative inline-flex justify-center items-center font-medium rounded-[40px] border-0 no-underline decoration-transparent decoration-0 cursor-pointer transition-button disabled:pointer-events-none",
@@ -17,54 +17,54 @@ const buttonVariants = cva(
         tertiary:
           "bg-transparent text-primary hover:bg-primary/5 active:bg-primary/10",
         outline:
-          "bg-transparent text-primary !border-solid !border-2 !border-primary hover:bg-primary/5 active:bg-primary/10",
+          "bg-transparent text-primary !border-solid !border-2 !border-primary hover:bg-primary/5 active:bg-primary/10"
       },
       size: {
         md: "h-xxl px-xxl text-sm",
         sm: "h-[32px] px-[26px] text-sm",
-        xs: "h-xl px-20 text-xs",
+        xs: "h-xl px-20 text-xs"
       },
       width: {
         auto: "w-auto",
-        full: "w-full",
+        full: "w-full"
       },
       disabled: {
-        true: "pointer-events-none opacity-50",
+        true: "pointer-events-none opacity-50"
       },
       loading: {
-        true: "",
-      },
+        true: ""
+      }
     },
     compoundVariants: [
       {
         disabled: true,
         loading: true,
-        className: "opacity-100",
-      },
+        className: "opacity-100"
+      }
     ],
     defaultVariants: {
       variant: "primary",
-      size: "md",
-    },
-  },
-);
+      size: "md"
+    }
+  }
+)
 
-type BaseProps = VariantProps<typeof buttonVariants>;
+type BaseProps = VariantProps<typeof buttonVariants>
 
 export interface ButtonProps
   extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, keyof BaseProps>,
     VariantProps<typeof buttonVariants> {
-  icon?: IconKey;
+  icon?: IconKey
 }
 
 type ButtonLinkProps = BaseProps &
   Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, keyof BaseProps> &
-  Omit<LinkProps, keyof BaseProps>;
+  Omit<LinkProps, keyof BaseProps>
 
 type ButtonExternalLinkProps = BaseProps &
-  Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, keyof BaseProps>;
+  Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, keyof BaseProps>
 
-type Props = ButtonProps | ButtonLinkProps | ButtonExternalLinkProps;
+type Props = ButtonProps | ButtonLinkProps | ButtonExternalLinkProps
 
 /**
  * A button.
@@ -82,7 +82,7 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(
       onClick,
       ...props
     },
-    ref,
+    ref
   ) => {
     const content = (
       <>
@@ -96,7 +96,7 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(
           <Icon size="xs" icon="IconLoader2" className="animate-load" />
         </ButtonLoader>
       </>
-    );
+    )
 
     const sharedProps = {
       variant,
@@ -108,9 +108,9 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(
           ? undefined
           : (onClick as React.MouseEventHandler<HTMLElement>),
       className: cn(
-        buttonVariants({ variant, size, disabled, width, loading, className }),
-      ),
-    };
+        buttonVariants({ variant, size, disabled, width, loading, className })
+      )
+    }
 
     if ("href" in props && props.href !== undefined) {
       if (typeof props.href === "string" && props.href.startsWith("http")) {
@@ -124,7 +124,7 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(
           >
             {content}
           </a>
-        );
+        )
       } else {
         return (
           <Link
@@ -134,7 +134,7 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(
           >
             {content}
           </Link>
-        );
+        )
       }
     } else {
       return (
@@ -145,28 +145,28 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(
         >
           {content}
         </button>
-      );
+      )
     }
-  },
-);
-Button.displayName = "Button";
+  }
+)
+Button.displayName = "Button"
 
 const ButtonContent = styled(
   "div",
   cva("flex items-center gap-2 transition-[opacity 100ms ease]", {
     variants: {
       loading: {
-        true: "opacity-0",
-      },
-    },
-  }),
+        true: "opacity-0"
+      }
+    }
+  })
 )(({ props: { className, loading, children, ...props }, ref, cn }) => {
   return (
     <div className={cn({ loading, className })} ref={ref} {...props}>
       {children}
     </div>
-  );
-});
+  )
+})
 
 const ButtonLoader = styled(
   "div",
@@ -175,13 +175,13 @@ const ButtonLoader = styled(
     {
       variants: {
         loading: {
-          true: "opacity-100",
-        },
-      },
-    },
-  ),
+          true: "opacity-100"
+        }
+      }
+    }
+  )
 )(({ props: { className, loading, ...props }, ref, cn }) => {
-  return <div className={cn({ loading, className })} ref={ref} {...props} />;
-});
+  return <div className={cn({ loading, className })} ref={ref} {...props} />
+})
 
-export { Button };
+export { Button }

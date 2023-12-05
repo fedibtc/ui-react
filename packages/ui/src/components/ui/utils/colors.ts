@@ -17,16 +17,17 @@ const IDENTITY_COLOR_PAIRS: [string, string][] = [
   ["#FFCCBC", "#E64A19"], // Deep Orange
   ["#D7CCC8", "#5D4037"], // Brown
   ["#F5F5F5", "#616161"], // Grey
-  ["#CFD8DC", "#455A64"], // Blue Grey
-];
+  ["#CFD8DC", "#455A64"] // Blue Grey
+]
 
 export function getIdentityColors(id: string | number) {
-  id = id.toString();
-  let index = 0;
+  id = id.toString()
+  let index = 0
   for (let i = 0; i < id.length; i++) {
-    index += id.charCodeAt(i);
+    index += id.charCodeAt(i)
   }
-  return IDENTITY_COLOR_PAIRS[index % IDENTITY_COLOR_PAIRS.length];
+
+  return IDENTITY_COLOR_PAIRS[index % IDENTITY_COLOR_PAIRS.length]
 }
 
 /**
@@ -35,9 +36,10 @@ export function getIdentityColors(id: string | number) {
  * or alpha'd 8 char.
  */
 export function hexToRgba(hex: string, alpha: number) {
-  hex = hex.replace("#", "");
-  const r = parseInt(hex.substring(0, 2), 16);
-  const g = parseInt(hex.substring(2, 4), 16);
-  const b = parseInt(hex.substring(4, 6), 16);
-  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  hex = hex.replace("#", "")
+  const r = parseInt(hex.substring(0, 2), 16)
+  const g = parseInt(hex.substring(2, 4), 16)
+  const b = parseInt(hex.substring(4, 6), 16)
+
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`
 }

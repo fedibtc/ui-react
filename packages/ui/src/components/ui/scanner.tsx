@@ -1,65 +1,65 @@
-import QrScanner from "qr-scanner";
-import { useEffect, useRef } from "react";
+import QrScanner from "qr-scanner"
+import { useEffect, useRef } from "react"
 
 export default function Scanner({
   scanning,
   onResult,
-  onError,
+  onError
 }: {
-  scanning: boolean;
-  onResult: (result: string) => void;
-  onError: (error: string) => void;
+  scanning: boolean
+  onResult: (result: string) => void
+  onError: (error: string) => void
 }) {
-  const res = useRef<string | null>(null);
-  const err = useRef<string | null>(null);
-  const ref = useRef<HTMLVideoElement>(null);
-  const scannerRef = useRef<QrScanner | null>(null);
+  const res = useRef<string | null>(null)
+  const err = useRef<string | null>(null)
+  const ref = useRef<HTMLVideoElement>(null)
+  const scannerRef = useRef<QrScanner | null>(null)
 
   useEffect(() => {
-    (async () => {
-      if (!ref.current) return;
+    ;(async () => {
+      if (!ref.current) return
 
       if (scanning) {
         scannerRef.current = new QrScanner(
           ref.current,
-          (result) => {
+          result => {
             if (result && res.current !== result.data) {
-              res.current = result.data;
-              onResult(result.data);
+              res.current = result.data
+              onResult(result.data)
               if (scannerRef.current) {
-                scannerRef.current.stop();
-                scannerRef.current.$overlay?.remove();
+                scannerRef.current.stop()
+                scannerRef.current.$overlay?.remove()
               }
             }
           },
           {
-            onDecodeError: (error) => {
+            onDecodeError: error => {
               if (typeof error === "string" && err.current !== error) {
-                err.current = error;
-                onError(error);
+                err.current = error
+                onError(error)
               } else if (
                 typeof error !== "string" &&
                 err.current !== error.message
               ) {
-                err.current = error.message;
-                onError(error.message);
+                err.current = error.message
+                onError(error.message)
               }
             },
             highlightScanRegion: true,
             highlightCodeOutline: true,
-            preferredCamera: "environment",
-          },
-        );
-        scannerRef.current.setInversionMode("both");
-        await scannerRef.current.start();
+            preferredCamera: "environment"
+          }
+        )
+        scannerRef.current.setInversionMode("both")
+        await scannerRef.current.start()
       } else if (scannerRef.current) {
-        scannerRef.current.destroy();
-        res.current = null;
-        err.current = null;
-        scannerRef.current = null;
+        scannerRef.current.destroy()
+        res.current = null
+        err.current = null
+        scannerRef.current = null
       }
-    })();
-  }, [scanning, ref]);
+    })()
+  }, [scanning, ref])
 
   return (
     <video
@@ -68,5 +68,5 @@ export default function Scanner({
         scanning ? "block" : "hidden"
       } object-cover`}
     />
-  );
+  )
 }

@@ -1,5 +1,5 @@
-import { Infer, styled } from "./utils/styled";
-import { cva } from "class-variance-authority";
+import { Infer, styled } from "./utils/styled"
+import { cva } from "class-variance-authority"
 
 /**
  * Text Component with all the typography styles.
@@ -15,30 +15,30 @@ export const Text = styled(
         body: "text-base",
         caption: "text-sm",
         small: "text-xs",
-        tiny: "text-tiny",
+        tiny: "text-tiny"
       },
       weight: {
         normal: "font-normal",
         medium: "font-medium",
         bold: "font-semibold",
-        bolder: "font-bold",
+        bolder: "font-bold"
       },
       ellipsize: {
-        true: "truncate",
-      },
+        true: "truncate"
+      }
     },
     defaultVariants: {
       ellipsize: false,
       variant: "body",
-      weight: "normal",
-    },
-  }),
+      weight: "normal"
+    }
+  })
 )(({ props: { className, variant, weight, ellipsize, ...props }, ref, cn }) => (
   <div
     className={cn({ variant, weight, ellipsize, className })}
     {...props}
     ref={ref}
   />
-));
+))
 
-export type TextProps = Infer<typeof Text>;
+export type TextProps = Infer<typeof Text>

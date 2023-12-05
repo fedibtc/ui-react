@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import inquirer from "inquirer";
-import * as fs from "fs";
+import inquirer from "inquirer"
+import * as fs from "fs"
 
 inquirer
   .prompt([
@@ -22,8 +22,8 @@ inquirer
         "Scanner",
         "Text",
         "Toast",
-        "WebLNProvider",
-      ],
+        "WebLNProvider"
+      ]
     },
     {
       type: "input",
@@ -31,29 +31,29 @@ inquirer
       default: "components/ui",
       message: "Where do you want to create the component?",
       validate: (value: string) => {
-        if (!value.length) return "Please enter a valid path";
+        if (!value.length) return "Please enter a valid path"
 
         try {
           const dir = fs.readdirSync(value, {
-            encoding: "utf-8",
-          });
+            encoding: "utf-8"
+          })
 
           if (Array.isArray(dir) && dir.length > 0) {
-            return true;
+            return true
           }
         } catch (err) {
-          return (err as Error).message;
+          return (err as Error).message
         }
-      },
-    },
-  ])
-  .then((answers) => {
-    console.log(answers);
-  })
-  .catch((err) => {
-    if (err.isTtyError) {
-      console.log(err.message);
-    } else {
-      console.log("Dead");
+      }
     }
-  });
+  ])
+  .then(answers => {
+    console.log(answers)
+  })
+  .catch(err => {
+    if (err.isTtyError) {
+      console.log(err.message)
+    } else {
+      console.log("Dead")
+    }
+  })
