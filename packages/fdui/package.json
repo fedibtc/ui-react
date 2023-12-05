@@ -1,0 +1,22 @@
+{
+  "name": "fdui",
+  "version": "0.0.1",
+  "description": "Fedi UI Injection CLI",
+  "main": "index.js",
+  "scripts": {
+    "build": "bun ./src/build.ts"
+  },
+  "bin": {
+    "fdui": "./dist/index.js"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/inquirer": "^9.0.7"
+  },
+  "dependencies": {
+    "inquirer": "^9.2.12"
+  }
+}
