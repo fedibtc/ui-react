@@ -1,51 +1,29 @@
 import inquirer from "inquirer"
-import fs from "fs"
 import chalk from "chalk"
-import { FediConfig, FediConfigSchema } from "../types"
+import retrieveFile from "../lib/retrieve"
+import getConfig from "../lib/config"
+import { transformFile } from "../lib/transform"
 
 const components = [
-  "Avatar",
-  "Button",
-  "Checkbox",
-  "CheckboxGroup",
-  "Dialog",
-  "Input",
-  "NostProvider",
-  "RadioGroup",
-  "Scanner",
-  "Text",
-  "Toast",
-  "WebLNProvider"
+  "avatar",
+  "button",
+  "checkbox",
+  "checkbox-group",
+  "dialog",
+  "input",
+  "nostr-provider",
+  "radio-group",
+  "scanner",
+  "text",
+  "toast",
+  "webln-provider"
 ]
 
 export default async function installCommand(component: string) {
   try {
-    let init: FediConfig | null = null
     let injectComponent: string | null = null
 
-    if (fs.existsSync("fedi.json")) {
-      const res = FediConfigSchema.safeParse(
-        JSON.parse(fs.readFileSync("fedi.json", "utf-8"))
-      )
-
-      if (res.success) {
-        init = res.data
-      } else {
-        console.log(
-          chalk.red(
-            "Corrupted fedi.json file. Please re-initialize with `fedi-cli init`"
-          )
-        )
-        process.exit(1)
-      }
-    } else {
-      console.log(
-        chalk.red(
-          "fedi.json file not found. Please initialize with `fedi-cli init`"
-        )
-      )
-      process.exit(1)
-    }
+    const config = getConfig()
 
     const indexedComponent = components.find(
       x => x.toLowerCase() === component?.toLowerCase()
@@ -66,7 +44,11 @@ export default async function installCommand(component: string) {
       injectComponent = componentName
     }
 
-    console.log(injectComponent, init)
+    const file = await retrieveFile(`components/ui/${injectComponent}.tsx`)
+
+    transformFile(file, config)
+
+    console.log(injectComponent)
   } catch (err) {
     console.log(chalk.red((err as Error).message))
     process.exit(1)
