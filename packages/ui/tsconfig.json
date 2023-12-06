@@ -2,11 +2,7 @@
   "compilerOptions": {
     "jsx": "react-jsxdev",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "types": ["bun-types", "web"],
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    }
+    "types": ["bun-types", "web"]
   },
   "extends": "../../tsconfig.json"
 }

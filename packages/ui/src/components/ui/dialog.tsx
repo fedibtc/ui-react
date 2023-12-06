@@ -1,8 +1,8 @@
 "use client"
 
-import { Icon } from "../icon"
-import { Text } from "../text"
-import { cn } from "../../../lib/utils"
+import { Icon } from "./icon"
+import { Text } from "./text"
+import { cn } from "../../lib/utils"
 import * as RadixDialog from "@radix-ui/react-dialog"
 import { VariantProps, cva } from "class-variance-authority"
 import React, { useCallback } from "react"

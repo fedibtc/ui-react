@@ -1,7 +1,10 @@
+"use client"
+
 // Inspired by react-hot-toast library
 import * as React from "react"
 import { Root, ToastAction } from "@radix-ui/react-toast"
 import { VariantProps } from "class-variance-authority"
+import { toastVariants } from "./toaster"
 
 type ToastProps = React.ComponentPropsWithoutRef<typeof Root> &
   VariantProps<typeof toastVariants>

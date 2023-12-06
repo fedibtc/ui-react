@@ -1,4 +1,6 @@
-import { Infer, styled } from "./utils/styled"
+"use client"
+
+import { Infer, styled } from "../../lib/styled"
 import { cva } from "class-variance-authority"
 
 /**

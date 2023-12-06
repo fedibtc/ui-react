@@ -1,4 +1,5 @@
 "use client"
+
 import NDK, { NDKNip07Signer, NDKUser } from "@nostr-dev-kit/ndk"
 import { createContext, useContext, useEffect, useState } from "react"
 

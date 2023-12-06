@@ -1,3 +1,5 @@
+"use client"
+
 import * as Icons from "@tabler/icons-react"
 import { TablerIconsProps } from "@tabler/icons-react"
 

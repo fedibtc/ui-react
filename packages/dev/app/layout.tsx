@@ -1,7 +1,7 @@
 "use client"
 
 import "./globals.css"
-import "@fedibtc/ui/dist/components.css"
+import "@fedibtc/ui/dist/index.css"
 
 export default function RootLayout({
   children

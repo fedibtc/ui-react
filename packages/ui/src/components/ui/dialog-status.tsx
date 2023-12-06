@@ -1,6 +1,8 @@
-import { Icon, IconKey } from "../icon"
-import { Text } from "../text"
-import { styled } from "../utils/styled"
+"use client"
+
+import { Icon, IconKey } from "./icon"
+import { Text } from "./text"
+import { styled } from "../../lib/styled"
 import { cva } from "class-variance-authority"
 import { useEffect, useRef, useState } from "react"
 

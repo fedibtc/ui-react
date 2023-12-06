@@ -1,9 +1,11 @@
+"use client"
+
+import { styled } from "../../lib/styled"
 import { Icon, IconKey } from "./icon"
-import { styled } from "./utils/styled"
-import { cn } from "../../lib/utils"
-import { cva, type VariantProps } from "class-variance-authority"
+import { cva, VariantProps } from "class-variance-authority"
 import Link, { LinkProps } from "next/link"
 import * as React from "react"
+import { cn } from "../../lib/utils"
 
 const buttonVariants = cva(
   "relative inline-flex justify-center items-center font-medium rounded-[40px] border-0 no-underline decoration-transparent decoration-0 cursor-pointer transition-button disabled:pointer-events-none",

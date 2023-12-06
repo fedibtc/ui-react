@@ -1,4 +1,6 @@
-import { styled } from "./utils/styled"
+"use client"
+
+import { styled } from "../../lib/styled"
 import { cn } from "../../lib/utils"
 import { cva } from "class-variance-authority"
 import { useCallback, useState } from "react"

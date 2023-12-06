@@ -1,5 +1,7 @@
+"use client"
+
 import { Checkbox } from "./checkbox"
-import { Infer } from "./utils/styled"
+import { Infer } from "../../lib/styled"
 import { useCallback } from "react"
 
 type CheckboxProps = Infer<typeof Checkbox>

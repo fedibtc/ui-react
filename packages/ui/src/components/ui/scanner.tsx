@@ -1,3 +1,5 @@
+"use client"
+
 import QrScanner from "qr-scanner"
 import { useEffect, useRef } from "react"
 

@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "UI components for Fedi Mods",
   "scripts": {
-    "build": "rm -rf dist && tailwindcss -i ./src/components.css -o ./dist/components.css && cp -r ./src/fonts ./dist/fonts && tsup src/index.ts  --sourcemap --dts --format esm,cjs,iife --global-name fedibtc",
+    "build": "tsup src/index.ts  --sourcemap --dts --format esm,cjs,iife --global-name fedibtc",
     "publish": "bun run build && npm publish",
     "format": "prettier --write src/**/*.{ts,tsx}"
   },
@@ -19,14 +19,14 @@
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "types": "./src/index.ts",
+      "types": "./dist/index.d.ts",
       "import": {
-        "default": "./src/index.ts"
+        "default": "./dist/index.d.ts"
       }
     },
-    "./dist/components.css": "./dist/components.css"
+    "./dist/index.css": "./dist/index.css"
   },
-  "types": "./src/index.ts",
+  "types": "./dist/index.d.ts",
   "publishConfig": {
     "types": "./dist/index.d.ts",
     "exports": {

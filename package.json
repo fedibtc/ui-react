@@ -16,5 +16,9 @@
     "eslint": "^8.55.0",
     "prettier": "^3.1.0",
     "typescript": "^5.3.2"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^11.1.0"
   }
 }

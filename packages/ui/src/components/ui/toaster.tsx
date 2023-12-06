@@ -1,9 +1,9 @@
 "use client"
 
-import { useToast } from "./hooks/use-toast"
+import { useToast } from "./use-toast"
 import { cn } from "../../lib/utils"
 import * as RadixToast from "@radix-ui/react-toast"
-import { cva, type VariantProps } from "class-variance-authority"
+import { cva, VariantProps } from "class-variance-authority"
 import { forwardRef, useEffect, useState } from "react"
 
 /**

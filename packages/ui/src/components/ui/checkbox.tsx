@@ -1,6 +1,8 @@
+"use client"
+
 import { Icon } from "./icon"
 import { Text } from "./text"
-import { Infer, styled } from "./utils/styled"
+import { Infer, styled } from "../../lib/styled"
 import * as RadixCheckbox from "@radix-ui/react-checkbox"
 import * as RadixLabel from "@radix-ui/react-label"
 import { cva } from "class-variance-authority"

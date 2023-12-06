@@ -1,7 +1,9 @@
+"use client"
+
 import { Icon, IconKey } from "./icon"
-import stringUtils from "./utils/StringUtils"
-import { getIdentityColors } from "./utils/colors"
-import { styled } from "./utils/styled"
+import stringUtils from "../../lib/StringUtils"
+import { getIdentityColors } from "../../lib/colors"
+import { styled } from "../../lib/styled"
 import * as RadixAvatar from "@radix-ui/react-avatar"
 import { cva } from "class-variance-authority"
 import { useState } from "react"

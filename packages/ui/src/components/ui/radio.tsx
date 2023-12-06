@@ -1,5 +1,7 @@
+"use client"
+
 import { Text } from "./text"
-import { Infer, styled } from "./utils/styled"
+import { Infer, styled } from "../../lib/styled"
 import { cn } from "../../lib/utils"
 import * as RadixLabel from "@radix-ui/react-label"
 import * as RadixRadio from "@radix-ui/react-radio-group"

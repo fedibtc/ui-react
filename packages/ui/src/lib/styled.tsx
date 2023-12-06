@@ -1,5 +1,5 @@
-import { cn } from "../../../lib/utils"
-import { type VariantProps } from "class-variance-authority"
+import { cn } from "./utils"
+import { VariantProps } from "class-variance-authority"
 import * as React from "react"
 import { ZodObject, z } from "zod"
 

@@ -1,9 +1,10 @@
 "use client"
+
 import { createContext, useContext, useEffect, useState } from "react"
-import { WebLNProvider } from "@webbtc/webln-types"
+import { WebLNProvider as WebLNProviderType } from "@webbtc/webln-types"
 
 export interface WebLNContextResult {
-  webln: WebLNProvider | undefined
+  webln: WebLNProviderType | undefined
   /**
    * Whether the webln connection is loading
    */
@@ -27,23 +28,23 @@ interface WebLNErrorResult extends WebLNContextResult {
 }
 
 interface WebLNSuccessResult extends WebLNContextResult {
-  webln: WebLNProvider
+  webln: WebLNProviderType
   isLoading: false
   error: null
 }
 
-export type WebLNProviderType =
+export type WebLNProviderStateType =
   | WebLNPending
   | WebLNErrorResult
   | WebLNSuccessResult
 
-export const WebLNContext = createContext<WebLNProviderType | null>(null)
+export const WebLNContext = createContext<WebLNProviderStateType | null>(null)
 
 /**
  * Connects to `window.webln`, enabling and exposing `webln` through `WebLNContext`.
  */
 export function WebLNProvider({ children }: { children: React.ReactNode }) {
-  const [webln, setWebln] = useState<WebLNProvider | undefined>(undefined)
+  const [webln, setWebln] = useState<WebLNProviderType | undefined>(undefined)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<Error | null>(null)
 
@@ -85,7 +86,7 @@ export function WebLNProvider({ children }: { children: React.ReactNode }) {
           webln,
           isLoading,
           error
-        } as WebLNProviderType
+        } as WebLNProviderStateType
       }
     >
       {children}
@@ -96,7 +97,7 @@ export function WebLNProvider({ children }: { children: React.ReactNode }) {
 /**
  * Returnes the value of `WebLNContext`. Throws an error if not used within a WebLNProvider.
  */
-export function useWebLNContext(): WebLNProviderType {
+export function useWebLNContext(): WebLNProviderStateType {
   const res = useContext(WebLNContext)
 
   if (res === null) {
@@ -109,7 +110,7 @@ export function useWebLNContext(): WebLNProviderType {
 /**
  * Returns a `WebLNProvider` instance. Throws an error if not used in a WebLNProvider or if not initialized.
  */
-export function useWebLN(): WebLNProvider {
+export function useWebLN(): WebLNProviderType {
   const res = useWebLNContext()
 
   if (typeof res.webln === "undefined") {
