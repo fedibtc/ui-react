@@ -1,8 +1,4 @@
-export type FilePath =
-  | `components/${string}.${"ts" | "tsx"}`
-  | `lib/${string}.{"ts" | "tsx"}`
-
-export default async function retrieveFile(path: FilePath) {
+export default async function retrieveFile(path: string) {
   const res = await fetch(
     "https://raw.githubusercontent.com/fedibtc/ModRepo/master/packages/ui/src/" +
       path

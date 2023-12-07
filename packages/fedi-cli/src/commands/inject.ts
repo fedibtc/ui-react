@@ -1,6 +1,5 @@
 import inquirer from "inquirer"
 import chalk from "chalk"
-import retrieveFile from "../lib/retrieve"
 import getConfig from "../lib/config"
 import { transformFile } from "../lib/transform"
 
@@ -44,9 +43,7 @@ export default async function installCommand(component: string) {
       injectComponent = componentName
     }
 
-    const file = await retrieveFile(`components/ui/${injectComponent}.tsx`)
-
-    transformFile(file, config)
+    transformFile(`components/ui/${injectComponent}.tsx`, config)
 
     console.log(injectComponent)
   } catch (err) {

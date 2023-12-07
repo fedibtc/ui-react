@@ -6,7 +6,7 @@ import injectCommand from "./commands/inject"
 // CLI Information
 program
   .name("fedi-cli")
-  .description("A CLI for creating Fedi Mods")
+  .description("A CLI for creating Fedi Mods.")
   .version("0.0.1")
 
 // Inject Command

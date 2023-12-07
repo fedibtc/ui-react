@@ -4,6 +4,9 @@ await Bun.build({
   entrypoints: ["./src/index.ts"],
   outdir: "./dist",
   target: "node"
+}).catch(err => {
+  console.error(err)
+  process.exit(1)
 })
 
 // Temporary solution to fix bun build "import.meta.require" error
