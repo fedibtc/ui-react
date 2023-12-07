@@ -1,4 +1,3 @@
-import getConfig from "./config"
 import retrieveFile from "./retrieve"
 
 type ImportType =
@@ -32,8 +31,6 @@ const pathToFile = (path: string) => {
 
 function parseImport(statement: string, fileName: string): ImportType | null {
   if (!statement.startsWith("import ")) {
-    console.warn("Invalid import statement found. Skipping.")
-
     return null
   }
 
@@ -59,17 +56,25 @@ function parseImport(statement: string, fileName: string): ImportType | null {
       }
     }
 
+    if (fileName.startsWith("lib")) {
+      return {
+        path: "lib/" + strippedPath + ".ts",
+        fileName,
+        type: "lib"
+      }
+    }
+
     return {
       path: pathToFile("components/ui/" + strippedPath),
       fileName,
       type: "component"
     }
-  } else {
-    return {
-      path,
-      fileName,
-      type: "dependency"
-    }
+  }
+
+  return {
+    path,
+    fileName,
+    type: "dependency"
   }
 }
 
@@ -78,7 +83,6 @@ export async function transformFile(
   existingImports: Array<ImportType> = [],
   visitedFiles: Set<string> = new Set<string>()
 ): Promise<{ content: string; imports: Array<ImportType> }> {
-  const { rsc } = getConfig()
   visitedFiles.add(file)
 
   try {
@@ -87,26 +91,21 @@ export async function transformFile(
 
     const output = [directive, imports, ...rest]
 
-    if (!directive.includes("use ")) {
-      throw new Error(
-        "Server/Client directive not found. Please create an issue at https://github.com/fedibtc/ModRepo/issues"
-      )
-    }
+    let fileImports = /use\s/.test(directive) ? imports : directive
 
-    if (!rsc) {
-      output.shift()
-    }
-
-    const requiredImports: Array<ImportType> = imports
+    const requiredImports: Array<ImportType> = fileImports
       .split("\n")
+      .filter(imp => imp.startsWith("import "))
       .map(imp => parseImport(imp, file))
       .filter(
-        x =>
-          x &&
-          x.path &&
-          (x.path.startsWith("lib/") || x.path.startsWith("components/ui/"))
-      )
-      .filter(x => !visitedFiles.has(x!.path)) as Array<ImportType>
+        x => x && x.path && !existingImports.some(y => y.path === x.path)
+      ) as Array<ImportType>
+
+    console.log(
+      "REQ",
+      requiredImports.map(x => x.path),
+      existingImports.map(x => x.path)
+    )
 
     for (const imp of requiredImports) {
       if (imp.type === "lib" || imp.type === "component") {
@@ -115,13 +114,18 @@ export async function transformFile(
           existingImports,
           visitedFiles
         )
-        existingImports.push(...childImports.imports)
+
+        existingImports.push(
+          ...childImports.imports.filter(
+            x => x.path && !existingImports.some(y => y.path === x.path)
+          )
+        )
       }
     }
 
     return {
       content: output.join("\n\n"),
-      imports: [...new Set([...existingImports, ...requiredImports])]
+      imports: [...existingImports, ...requiredImports]
     }
   } catch (err) {
     console.error(err)

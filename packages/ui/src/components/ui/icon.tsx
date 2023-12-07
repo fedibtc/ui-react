@@ -1,7 +1,6 @@
 "use client"
 
 import * as Icons from "@tabler/icons-react"
-import { TablerIconsProps } from "@tabler/icons-react"
 
 const sizes = {
   xxs: 12,
@@ -14,7 +13,7 @@ const sizes = {
 
 export type IconKey = Exclude<keyof typeof Icons, "createReactComponent">
 
-export interface IconProps extends TablerIconsProps {
+export interface IconProps extends Icons.TablerIconsProps {
   icon: IconKey
   size?: keyof typeof sizes | number
 }

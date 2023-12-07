@@ -1,6 +1,5 @@
 import inquirer from "inquirer"
 import chalk from "chalk"
-import getConfig from "../lib/config"
 import { transformFile } from "../lib/transform"
 
 const components = [
@@ -10,6 +9,7 @@ const components = [
   "checkbox-group",
   "dialog",
   "input",
+  "icon",
   "nostr-provider",
   "radio-group",
   "scanner",
@@ -21,8 +21,6 @@ const components = [
 export default async function installCommand(component: string) {
   try {
     let injectComponent: string | null = null
-
-    const config = getConfig()
 
     const indexedComponent = components.find(
       x => x.toLowerCase() === component?.toLowerCase()
@@ -43,9 +41,9 @@ export default async function installCommand(component: string) {
       injectComponent = componentName
     }
 
-    transformFile(`components/ui/${injectComponent}.tsx`, config)
-
-    console.log(injectComponent)
+    console.log(
+      (await transformFile(`components/ui/${injectComponent}.tsx`)).imports
+    )
   } catch (err) {
     console.log(chalk.red((err as Error).message))
     process.exit(1)
