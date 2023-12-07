@@ -1,6 +1,6 @@
 import inquirer from "inquirer"
 import chalk from "chalk"
-import { transformFile } from "../lib/transform"
+import { extractImports } from "../lib/imports"
 
 const components = [
   "avatar",
@@ -11,10 +11,10 @@ const components = [
   "input",
   "icon",
   "nostr-provider",
-  "radio-group",
+  "radio",
   "scanner",
   "text",
-  "toast",
+  "toaster",
   "webln-provider"
 ]
 
@@ -41,9 +41,7 @@ export default async function installCommand(component: string) {
       injectComponent = componentName
     }
 
-    console.log(
-      (await transformFile(`components/ui/${injectComponent}.tsx`)).imports
-    )
+    console.log(await extractImports(`components/ui/${injectComponent}.tsx`))
   } catch (err) {
     console.log(chalk.red((err as Error).message))
     process.exit(1)
