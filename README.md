@@ -7,6 +7,5 @@ A monorepo consisting of all the Fedi Mod-specific NPM packages.
 
 ## Development
 
-- Ensure you have [Nix](https://nixos.org/download) installed on your machine
-- Run `nix develop`
+- Ensure you have [Bun](https://bun.sh) installe
 - `cd` into `packages/dev` and run `bun dev`

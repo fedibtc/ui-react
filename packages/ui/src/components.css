@@ -2,23 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    --green: 0 168 42;
-    --orange: 223 123 0;
-    --darkGrey: 109 112 113;
-    --grey: 133 135 137;
-    --lightGrey: 211 212 219;
-    --extraLightGrey: 233 233 234;
-    --keyboardGrey: 232 234 237;
-    --red: 224 11 0;
-    --white: 255 255 255;
-    --black: 0 0 0;
-    --night: 11 16 19;
-    --blue: 2 119 242;
-  }
-}
-
 @font-face {
   font-family: "Albert Sans";
   font-style: normal;
@@ -53,7 +36,8 @@
   }
   html,
   body {
-    @apply h-full text-primary;
+    height: 100%;
+    color: rgb(11, 16, 19);
     font-family: "Albert Sans", sans-serif;
     overscroll-behavior: none;
   }
@@ -105,6 +89,7 @@
     height: 100%;
   }
   ul {
-    @apply list-disc list-inside;
+    list-style-type: disc;
+    list-style-position: inside;
   }
 }

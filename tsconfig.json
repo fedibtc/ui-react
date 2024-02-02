@@ -7,7 +7,6 @@
     "moduleResolution": "node",
     "isolatedModules": true,
     "allowSyntheticDefaultImports": true,
-    "types": ["bun-types"],
     "skipLibCheck": true
   },
   "exclude": ["node_modules"]

@@ -1,54 +1,79 @@
-# Fedi UI
+# Fedi UI Components
 
 Beautiful React Components for building Fedi Mods.
 
-## Installation
-
-Install the package with your desired package manager.
-
-```
-npm i @fedibtc/ui
-yarn add @fedibtc/ui
-pnpm install @fedibtc/ui
-bun i @fedibtc/ui
-```
-
 ## Getting Started
 
-Import the required CSS file into your Layout file
+### 1. Install the UI Library
 
-```tsx
-"use client";
+Install the package from the command line
 
-import "./globals.css";
-import "@fedibtc/ui/dist/components.css";
-
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
-  );
-}
+```bash
+npm install @fedibtc/ui
 ```
 
-Then start using the components right off the bat
+### 2. Import Styles
+
+Import the required `index.css` file into your app's layout.
+
+```js
+import "@fedibtc/ui/dist/index.css"
+```
+
+### 3. Start Building
+
+Start using the components in your app.
 
 ```tsx
-import { Button, Text } from "@fedibtc/ui";
+import { Button, Text } from "@fedibtc/ui"
 
-export default function Home() {
+export default function App() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main>
       <Button>Click me</Button>
       <Text variant="h1" weight="bolder">
         Hi there!
       </Text>
     </main>
-  );
+  )
 }
 ```
+
+## Tailwind Theme
+
+Use the [@fedibtc/tailwind-theme](https://www.npmjs.com/package/@fedibtc/tailwind-theme) plugin to start using themed TailwindCSS classes.
+
+### 1. Set up TailwindCSS
+
+Install and set up Tailwind CSS with PostCSS and Autoprefixer if you haven't already.
+
+```bash
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+```
+
+### 2. Install the Plugin
+
+Install the plugin from the command line
+
+```bash
+npm install @fedibtc/tailwind-theme
+```
+
+### 3. Add it to `tailwind.config.js`
+
+Import and add the plugin to the `plugins` entry in `tailwind.config.js`
+
+```diff
+// tailwind.config.js
+module.exports = {
++  plugins: [require("@fedibtc/tailwind-theme")]
+}
+```
+
+## Links
+
+- [GitHub](https://github.com/fedibtc/ui-react)
+- [Docs](https://fedibtc.github.io/fedi-docs/)
+- [NPM](https://www.npmjs.com/package/@fedibtc/ui)
+- [Tailwind Theme (NPM)](https://www.npmjs.com/package/@fedibtc/tailwind-theme)

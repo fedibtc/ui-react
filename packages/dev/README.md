@@ -1,3 +1,3 @@
-# Package Development Environment
+# Development Server
 
-Used to test the Fedi React UI Components & Lightning Utilities.
+Used to test `@fedibtc/ui` components in a development environment.
