@@ -2,8 +2,9 @@
 
 A monorepo consisting of all the Fedi Mod-specific NPM packages.
 
-- [@fedibtc/ui](/packages/ui) - React UI Components
-- [fdui](/packages/fdui) - React UI Component CLI
+- [@fedibtc/ui](https://www.npmjs.com/package/@fedibtc/ui) - React UI Components
+- [@fedibtc/tailwind-theme](https://www.npmjs.com/package/@fedibtc/tailwind-theme) - TailwindCSS theme
+- [dev](/packages/dev) - Development environment for packages
 
 ## Development
 
