@@ -1,6 +1,7 @@
 import React from "react"
 import { styled, variants } from "react-tailwind-variants"
 import { Icon, IconKey } from "./icon"
+import { twMerge } from "tailwind-merge"
 
 export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   /**
@@ -43,6 +44,7 @@ export function Button({
   size = "md",
   width = "auto",
   children,
+  className,
   ...props
 }: ButtonProps) {
   const content = (
@@ -63,13 +65,16 @@ export function Button({
 
   return href ? (
     <a
-      className={buttonVariants({
-        loading,
-        variant,
-        size,
-        width,
-        disabled: props.disabled
-      })}
+      className={twMerge(
+        buttonVariants({
+          loading,
+          variant,
+          size,
+          width,
+          disabled: props.disabled
+        }),
+        className
+      )}
       href={href}
       target="_blank"
       rel="noopener noreferrer"
@@ -78,13 +83,16 @@ export function Button({
     </a>
   ) : (
     <button
-      className={buttonVariants({
-        loading,
-        variant,
-        size,
-        width,
-        disabled: props.disabled
-      })}
+      className={twMerge(
+        buttonVariants({
+          loading,
+          variant,
+          size,
+          width,
+          disabled: props.disabled
+        }),
+        className
+      )}
       {...props}
     >
       {content}
