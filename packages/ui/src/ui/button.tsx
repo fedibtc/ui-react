@@ -1,3 +1,5 @@
+"use client"
+
 import React from "react"
 import { styled, variants } from "react-tailwind-variants"
 import { Icon, IconKey } from "./icon"
