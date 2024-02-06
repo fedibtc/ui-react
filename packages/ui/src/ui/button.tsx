@@ -118,7 +118,7 @@ const buttonVariants = variants({
     size: {
       md: "h-xxl px-xxl text-sm",
       sm: "h-[32px] px-[26px] text-sm",
-      xs: "h-xl px-20 text-xs"
+      xs: "h-xl px-5 text-xs"
     },
     width: {
       auto: "w-auto",

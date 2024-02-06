@@ -129,5 +129,5 @@ const DialogHeader = styled("div", {
 const DialogTitle = RadixDialog.Title
 
 const DialogDescription = styled(RadixDialog.Description, {
-  base: "text-darkGrey mb-20"
+  base: "text-darkGrey mb-5"
 })

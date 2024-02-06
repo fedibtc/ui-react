@@ -44,7 +44,7 @@ export function Toaster() {
 }
 
 const ToastViewport = styled(RadixToast.Viewport, {
-  base: "bottom-[32px] right-20 sm:bottom-auto sm:right-1/2 sm:top-[32px] sm:translate-x-1/2 fixed z-[2147483647] flex max-h-screen w-full flex-col-reverse max-w-[320px] outline-0 list-style-none p-0"
+  base: "bottom-[32px] right-5 sm:bottom-auto sm:right-1/2 sm:top-[32px] sm:translate-x-1/2 fixed z-[2147483647] flex max-h-screen w-full flex-col-reverse max-w-[320px] outline-0 list-style-none p-0"
 })
 
 const Toast = styled(RadixToast.Root, {
@@ -52,7 +52,7 @@ const Toast = styled(RadixToast.Root, {
 })
 
 const ToastInner = styled("div", {
-  base: "grid gap-1 bg-holo-400 p-20 w-full h-full"
+  base: "grid gap-1 bg-holo-400 p-5 w-full h-full"
 })
 
 const ToastContent = styled(RadixToast.Description, {

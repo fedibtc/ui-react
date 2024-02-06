@@ -102,7 +102,7 @@ const Root = styled(RadixAvatar.Root, {
   base: "relative inline-flex justify-center items-center overflow-hidden bg-[var(--bg-color)]",
   variants: {
     size: {
-      xs: "w-20 h-20 text-[8px]",
+      xs: "w-5 h-5 text-[8px]",
       sm: "w-[32px] h-[32px] text-tiny",
       md: "w-xxl h-xxl text-body",
       lg: "w-[88px] h-[88px] text-h2"
