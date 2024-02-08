@@ -1,6 +1,7 @@
 "use client"
 
 import { variants } from "react-tailwind-variants"
+import { twMerge } from "tailwind-merge"
 import React from "react"
 
 type TextProps = {
@@ -61,12 +62,14 @@ export function Text({
 }: TextProps) {
   return (
     <div
-      className={textVariants({
-        variant,
-        weight,
-        ellipsize,
+      className={twMerge(
+        textVariants({
+          variant,
+          weight,
+          ellipsize,
+        }),
         className
-      })}
+      )}
       {...props}
     />
   )
