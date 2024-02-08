@@ -4,6 +4,9 @@ import theme from "./theme"
 const themePlugin = plugin(() => {}, {
   theme: {
     extend: theme
+  },
+  corePlugins: {
+    preflight: false
   }
 })
 
