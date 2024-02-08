@@ -5,11 +5,7 @@ import { styled, variants } from "react-tailwind-variants"
 import { Icon, IconKey } from "./icon"
 import { twMerge } from "tailwind-merge"
 
-export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  /**
-   * The URL to navigate to when clicked. Converts the button to an anchor element, always opens the link in a new tab.
-   */
-  href?: string
+export type BaseButtonProps = {
   /**
    * An icon to display before the button text.
    */
@@ -33,13 +29,33 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
    * Whether the button is in a loading state.
    */
   loading?: boolean
+  /**
+   * Whether the button is disabled.
+   */
+  disabled?: boolean
 }
+
+type ButtonProps = Omit<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  keyof BaseButtonProps
+> &
+  BaseButtonProps
+
+type ButtonLinkProps = Omit<
+  React.AnchorHTMLAttributes<HTMLAnchorElement>,
+  keyof BaseButtonProps
+> &
+  BaseButtonProps & {
+    /**
+     * The URL to navigate to when clicked. Converts the button to an anchor element, always opens the link in a new tab.
+     */
+    href: string
+  }
 
 /**
  * A pressable and accessible react node used to trigger an action or open a link (a Button).
  */
 export function Button({
-  href,
   loading,
   icon,
   variant = "primary",
@@ -48,7 +64,7 @@ export function Button({
   children,
   className,
   ...props
-}: ButtonProps) {
+}: ButtonProps | ButtonLinkProps) {
   const content = (
     <>
       <ButtonContent loading={loading}>
@@ -65,25 +81,29 @@ export function Button({
     </>
   )
 
-  return href ? (
-    <a
-      className={twMerge(
-        buttonVariants({
-          loading,
-          variant,
-          size,
-          width,
-          disabled: props.disabled
-        }),
-        className
-      )}
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      {content}
-    </a>
-  ) : (
+  if ("href" in props) {
+    return (
+      <a
+        className={twMerge(
+          buttonVariants({
+            loading,
+            variant,
+            size,
+            width,
+            disabled: props.disabled
+          }),
+          className
+        )}
+        target="_blank"
+        rel="noopener noreferrer"
+        {...props}
+      >
+        {content}
+      </a>
+    )
+  }
+
+  return (
     <button
       className={twMerge(
         buttonVariants({
@@ -148,7 +168,7 @@ const buttonVariants = variants({
 })
 
 const ButtonContent = styled("div", {
-  base: "flex items-center gap-2 transition-[opacity 100ms ease]",
+  base: "flex items-center gap-2",
   variants: {
     loading: {
       true: "opacity-0"
