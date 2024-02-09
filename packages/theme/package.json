@@ -1,6 +1,6 @@
 {
   "name": "@fedibtc/tailwind-theme",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Tailwind theme for @fedibtc/ui",
   "scripts": {
     "clean": "rm -rf dist",
