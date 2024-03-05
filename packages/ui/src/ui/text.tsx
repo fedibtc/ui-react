@@ -66,7 +66,7 @@ export function Text({
         textVariants({
           variant,
           weight,
-          ellipsize,
+          ellipsize
         }),
         className
       )}

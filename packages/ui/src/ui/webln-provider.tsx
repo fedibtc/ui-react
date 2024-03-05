@@ -32,7 +32,9 @@ export const WebLNContext = React.createContext<WebLNProviderType | null>(null)
  * Connects to `window.webln`, enabling and exposing `webln` through `WebLNContext`.
  */
 export function WebLNProvider({ children }: { children: React.ReactNode }) {
-  const [webln, setWebln] = React.useState<WebLNProviderWindow | undefined>(undefined)
+  const [webln, setWebln] = React.useState<WebLNProviderWindow | undefined>(
+    undefined
+  )
   const [isLoading, setIsLoading] = React.useState(true)
   const [error, setError] = React.useState<Error | null>(null)
 

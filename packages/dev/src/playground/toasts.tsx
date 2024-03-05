@@ -1,18 +1,31 @@
-import { useToast, Text, Button, Input } from "@fedibtc/ui"
-import { useState } from "react"
+import { useToast, Text, Button } from "@fedibtc/ui"
 import Container from "../components/container"
 
 export default function Toasts() {
-  const [content, setContent] = useState(
-    "Failed to toast, requires at least one toaster to be available."
-  )
-  const { toast } = useToast()
+  const toast = useToast()
 
   return (
     <Container title="Toast">
       <Text variant="h2">Toast</Text>
-      <Input value={content} onChange={e => setContent(e.target.value)} />
-      <Button onClick={() => toast({ content })}>Toast</Button>
+      <Button
+        onClick={() =>
+          toast.show({ content: "Success toast", status: "success" })
+        }
+      >
+        Success
+      </Button>
+      <Button
+        onClick={() => toast.show({ content: "Info toast", status: "success" })}
+      >
+        Info
+      </Button>
+      <Button
+        onClick={() =>
+          toast.show({ content: "Error toast", status: "success" })
+        }
+      >
+        Error Toast
+      </Button>
     </Container>
   )
 }

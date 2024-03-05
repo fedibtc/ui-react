@@ -2,22 +2,17 @@
 
 A toast component.
 
-## Toaster
+## ToastProvider
 
-Displays toasts. Should be placed at the root of the app.
+Provides the state for toast messages and displays them. Should be placed at the root of the app.
 
 ### Usage
 
 ```tsx
-import { Toaster } from "@fedibtc/ui"
+import { ToastProvider } from "@fedibtc/ui"
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  return (
-    <div>
-      {children}
-      <Toaster />
-    </div>
-  )
+  return <ToastProvider>{children}</ToastProvider>
 }
 ```
 
@@ -34,7 +29,9 @@ export default function Page() {
   const toast = useToast()
 
   return (
-    <Button onClick={() => toast({ content: "I am a toast" })}>
+    <Button
+      onClick={() => toast.show({ content: "I am a toast", status: "success" })}
+    >
       Show Toast
     </Button>
   )
