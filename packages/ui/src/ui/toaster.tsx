@@ -76,7 +76,6 @@ function Toaster() {
           </ToastInner>
         )}
       </Toast>
-      )
       <ToastViewport />
     </RadixToast.Provider>
   )

@@ -46,46 +46,49 @@ export type InputProps = CustomProps &
 /**
  * A styled <input> element
  */
-export function Input({
-  label,
-  onFocus,
-  onBlur,
-  width = "full",
-  adornment,
-  ...inputProps
-}: InputProps) {
-  const [hasFocus, setHasFocus] = React.useState(false)
+export const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  (
+    { label, onFocus, onBlur, width = "full", adornment, ...inputProps },
+    ref
+  ) => {
+    const [hasFocus, setHasFocus] = React.useState(false)
 
-  const handleFocus = React.useCallback(
-    (ev: React.FocusEvent<HTMLInputElement>) => {
-      setHasFocus(true)
-      if (onFocus) onFocus(ev)
-    },
-    [onFocus]
-  )
+    const handleFocus = React.useCallback(
+      (ev: React.FocusEvent<HTMLInputElement>) => {
+        setHasFocus(true)
+        if (onFocus) onFocus(ev)
+      },
+      [onFocus]
+    )
 
-  const handleBlur = React.useCallback(
-    (ev: React.FocusEvent<HTMLInputElement>) => {
-      setHasFocus(false)
-      if (onBlur) onBlur(ev)
-    },
-    [onBlur]
-  )
+    const handleBlur = React.useCallback(
+      (ev: React.FocusEvent<HTMLInputElement>) => {
+        setHasFocus(false)
+        if (onBlur) onBlur(ev)
+      },
+      [onBlur]
+    )
 
-  return (
-    <Container width={width}>
-      {label && (
-        <Label>
-          <Text variant="small">{label}</Text>
-        </Label>
-      )}
-      <InputWrap isFocused={hasFocus} isDisabled={inputProps.disabled}>
-        <TextInput {...inputProps} onFocus={handleFocus} onBlur={handleBlur} />
-        {adornment}
-      </InputWrap>
-    </Container>
-  )
-}
+    return (
+      <Container width={width}>
+        {label && (
+          <Label>
+            <Text variant="small">{label}</Text>
+          </Label>
+        )}
+        <InputWrap isFocused={hasFocus} isDisabled={inputProps.disabled}>
+          <TextInput
+            {...inputProps}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            ref={ref}
+          />
+          {adornment}
+        </InputWrap>
+      </Container>
+    )
+  }
+)
 
 const Container = styled("label", {
   base: "inline-flex flex flex-col text-left",

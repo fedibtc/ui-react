@@ -1,6 +1,6 @@
 {
   "name": "@fedibtc/ui",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "description": "UI components for Fedi Mods",
   "scripts": {
     "clean": "rm -rf dist",
