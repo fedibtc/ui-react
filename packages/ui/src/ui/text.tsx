@@ -1,7 +1,6 @@
 "use client"
 
-import { variants } from "react-tailwind-variants"
-import { twMerge } from "tailwind-merge"
+import { styled } from "react-tailwind-variants"
 import React from "react"
 
 type TextProps = {
@@ -20,11 +19,11 @@ type TextProps = {
    * @default false
    */
   ellipsize?: boolean
-} & React.HTMLAttributes<HTMLDivElement>
+} & React.ComponentPropsWithoutRef<typeof TextBase>
 /**
  * Text Component with all the typography styles.
  */
-const textVariants = variants({
+const TextBase = styled("div", {
   base: "text-inherit text-body leading-5 tracking-[-1%]",
   variants: {
     variant: {
@@ -53,24 +52,8 @@ const textVariants = variants({
   }
 })
 
-export function Text({
-  variant,
-  weight,
-  ellipsize,
-  className,
-  ...props
-}: TextProps) {
-  return (
-    <div
-      className={twMerge(
-        textVariants({
-          variant,
-          weight,
-          ellipsize
-        }),
-        className
-      )}
-      {...props}
-    />
-  )
-}
+export const Text = React.forwardRef<HTMLDivElement, TextProps>(
+  ({ ...props }, ref) => {
+    return <Text ref={ref} {...props} />
+  }
+)
