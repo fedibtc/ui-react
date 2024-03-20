@@ -54,6 +54,6 @@ const TextBase = styled("div", {
 
 export const Text = React.forwardRef<HTMLDivElement, TextProps>(
   ({ ...props }, ref) => {
-    return <Text ref={ref} {...props} />
+    return <TextBase ref={ref} {...props} />
   }
 )
