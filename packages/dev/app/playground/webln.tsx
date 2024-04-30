@@ -9,19 +9,17 @@ export default function WebLNExample() {
 
   const webln = useWebLN()
 
-  const { toast } = useToast()
+  const toast = useToast()
 
   const payInvoice = async () => {
     try {
       await webln.sendPayment(invoice)
-      toast({
+      toast.show({
         content: "Invoice Paid successfully"
       })
     } catch (e) {
       console.error(e)
-      toast({
-        content: "Error paying invoice: " + (e as Error).message
-      })
+      toast.error(e)
     } finally {
       setInvoice("")
     }
@@ -41,14 +39,12 @@ export default function WebLNExample() {
             }
       )
       await window.navigator.clipboard.writeText(invoice.paymentRequest)
-      toast({
+      toast.show({
         content: "Invoice copied to clipboard: " + invoice.paymentRequest
       })
     } catch (e) {
       console.error(e)
-      toast({
-        content: "Error creating invoice: " + (e as Error).message
-      })
+      toast.error(e)
     }
   }
 

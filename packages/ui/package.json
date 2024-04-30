@@ -1,6 +1,6 @@
 {
   "name": "@fedibtc/ui",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "UI components for Fedi Mods",
   "scripts": {
     "clean": "rm -rf dist",
@@ -43,6 +43,7 @@
     "react-tailwind-variants": "^1.0.2"
   },
   "devDependencies": {
+    "@fedibtc/api": "workspace:*",
     "@fedibtc/tailwind-theme": "workspace:*",
     "@webbtc/webln-types": "^2.1.0",
     "@types/react": "^18.2.51",

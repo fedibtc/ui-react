@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react"
-import { WebLNProvider as WebLNProviderWindow } from "@webbtc/webln-types"
+import { InjectionWebLNProvider } from "@fedibtc/api"
 
 interface WebLNPending {
   webln: undefined
@@ -16,7 +16,7 @@ interface WebLNErrorResult {
 }
 
 interface WebLNSuccessResult {
-  webln: WebLNProviderWindow
+  webln: InjectionWebLNProvider
   isLoading: false
   error: null
 }
@@ -32,7 +32,7 @@ export const WebLNContext = React.createContext<WebLNProviderType | null>(null)
  * Connects to `window.webln`, enabling and exposing `webln` through `WebLNContext`.
  */
 export function WebLNProvider({ children }: { children: React.ReactNode }) {
-  const [webln, setWebln] = React.useState<WebLNProviderWindow | undefined>(
+  const [webln, setWebln] = React.useState<InjectionWebLNProvider | undefined>(
     undefined
   )
   const [isLoading, setIsLoading] = React.useState(true)
@@ -49,18 +49,7 @@ export function WebLNProvider({ children }: { children: React.ReactNode }) {
 
         await window.webln.enable()
 
-        if (
-          // Different WebLN providers have different (_)isEnabled methods
-          ("isEnabled" in window.webln &&
-            typeof window.webln.isEnabled === "function" &&
-            (await window.webln?.isEnabled())) ||
-          ("isEnabled" in window.webln &&
-            typeof window.webln.isEnabled === "boolean" &&
-            window.webln.isEnabled) ||
-          ("_isEnabled" in window.webln &&
-            typeof window.webln._isEnabled === "boolean" &&
-            window.webln?.isEnabled)
-        ) {
+        if ("isEnabled" in window.webln && window.webln.isEnabled) {
           setWebln(window.webln)
         } else {
           throw new Error("Could not enable WebLN Provider")
@@ -107,7 +96,7 @@ export function useWebLNContext(): WebLNProviderType {
  * Returns `WebLNProvider.webln` directly.
  * Requires WebLNProvider to have been initialized successfully or throws an error.
  */
-export function useWebLN(): WebLNProviderWindow {
+export function useWebLN(): InjectionWebLNProvider {
   const res = useWebLNContext()
 
   if (typeof res.webln === "undefined") {

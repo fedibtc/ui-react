@@ -27,7 +27,7 @@ export function useToast() {
     const toastArgs: Required<Toast> = {
       key: Date.now().toString(),
       content: typeof args === "string" ? args : args.content,
-      status: "info",
+      status: "success",
       ...((typeof args === "object" && args) || {})
     }
 
