@@ -1,9 +1,8 @@
-import { ToastProvider, WebLNProvider } from "@fedibtc/ui"
+import { ToastProvider, FediInjectionProvider } from "@fedibtc/ui"
 import "@fedibtc/ui/dist/index.css"
 import type { Metadata } from "next"
 import { Albert_Sans } from "next/font/google"
 import "./globals.css"
-import { NostrProvider } from "@fedibtc/ui"
 
 const albertSans = Albert_Sans({ subsets: ["latin"] })
 
@@ -22,9 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={albertSans.className}>
         <ToastProvider>
-          <WebLNProvider>
-            <NostrProvider>{children}</NostrProvider>
-          </WebLNProvider>
+          <FediInjectionProvider>{children}</FediInjectionProvider>
         </ToastProvider>
       </body>
     </html>

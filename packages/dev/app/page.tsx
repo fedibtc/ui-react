@@ -6,14 +6,13 @@ import FormFields from "./playground/form-fields"
 import Avatars from "./playground/avatars"
 import Toasts from "./playground/toasts"
 import Dialogs from "./playground/dialogs"
-import { Icon, Text, useNostrContext, useWebLNContext } from "@fedibtc/ui"
+import { Icon, Text, useFediInjectionContext } from "@fedibtc/ui"
 import Container from "./components/container"
 import NostrExample from "./playground/nostr"
 import WebLNExample from "./playground/webln"
 
 function App() {
-  const weblnStatus = useWebLNContext()
-  const nostrStatus = useNostrContext()
+  const { status, isLoading, error } = useFediInjectionContext()
 
   let content = (
     <>
@@ -28,34 +27,19 @@ function App() {
     </>
   )
 
-  if (weblnStatus.isLoading) {
+  if (isLoading) {
     content = (
       <Container title="Loading WebLN...">
         <Icon icon="IconLoader2" className="animate-spin" />
+        <Text>{status}</Text>
       </Container>
     )
   }
 
-  if (nostrStatus.isLoading) {
+  if (error) {
     content = (
-      <Container title="Loading Nostr...">
-        <Icon icon="IconLoader2" className="animate-spin" />
-      </Container>
-    )
-  }
-
-  if (weblnStatus.error) {
-    content = (
-      <Container title="WebLN Error">
-        <Text>{weblnStatus.error.message}</Text>
-      </Container>
-    )
-  }
-
-  if (nostrStatus.error) {
-    content = (
-      <Container title="Nostr Error">
-        <Text>{nostrStatus.error.message}</Text>
+      <Container title="An Error Occurred">
+        <Text>{error.message}</Text>
       </Container>
     )
   }

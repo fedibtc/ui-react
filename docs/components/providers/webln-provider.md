@@ -1,5 +1,7 @@
 # WebLNProvider
 
+**Deprecated**: Removed in `@fedibtc/ui 1.2.0`
+
 Enables and exposes `window.webln` through the `useWebLNContext`/`useWebLN` hooks provided by `WebLNContext`
 
 ## Usage

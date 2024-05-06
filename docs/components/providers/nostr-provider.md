@@ -1,5 +1,7 @@
 # NostrProvider
 
+**Deprecated**: Removed in `@fedibtc/ui 1.2.0`
+
 Connects to `window.nostr`, exposes the user's `pubkey` and a `signEvent` function to sign Nostr events.
 
 ## Usage

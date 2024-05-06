@@ -8,7 +8,8 @@
     "prepublishOnly": "bun run clean && bun run build",
     "publish:release": "npm publish",
     "publish:beta": "npm publish --tag beta",
-    "format": "prettier --write index.ts"
+    "format": "prettier --write --ignore-path src/**/*.ts",
+    "lint": "tsc --noEmit"
   },
   "exports": {
     ".": {

@@ -8,6 +8,7 @@ export interface InjectionWebLNProvider {
   ): Promise<RequestInvoiceResponse>
   signMessage(message: string): Promise<SignMessageResponse>
   verifyMessage(signature: string, message: string): Promise<void>
+  isEnabled: boolean
 }
 
 export interface WebLNNode {

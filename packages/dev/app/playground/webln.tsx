@@ -1,4 +1,11 @@
-import { Button, Checkbox, Input, Text, useToast, useWebLN } from "@fedibtc/ui"
+import {
+  Button,
+  Checkbox,
+  Input,
+  Text,
+  useFediInjection,
+  useToast
+} from "@fedibtc/ui"
 import Container from "../components/container"
 import { useState } from "react"
 
@@ -7,7 +14,7 @@ export default function WebLNExample() {
   const [amount, setAmount] = useState(1)
   const [fixed, setFixed] = useState(true)
 
-  const webln = useWebLN()
+  const { webln } = useFediInjection()
 
   const toast = useToast()
 

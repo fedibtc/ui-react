@@ -1,31 +1,8 @@
-import { ZodError, ZodIssue } from "zod"
-
-const formatZodIssue = (issue: ZodIssue): string => {
-  const { path, message } = issue
-  const pathString = path.join(".")
-
-  return `${pathString}: ${message}`
-}
-
-// Format the Zod error message with only the current error
-export const formatZodError = (error: ZodError): string => {
-  const { issues } = error
-
-  if (issues.length) {
-    const currentIssue = issues[0]
-
-    return formatZodIssue(currentIssue)
-  }
-
-  return "An unknown error occurred"
-}
-
-export const formatError = (error: Error | ZodError | unknown): string => {
+export const formatError = (error: Error | unknown): string => {
   console.log(error)
 
-  if (error instanceof ZodError) {
-    return formatZodError(error)
-  }
+  if (error instanceof Error) return error.message
+  else if ("message" in (error as any)) return (error as any).message as string
 
-  return (error as Error).message
+  return "An unknown error occurred"
 }

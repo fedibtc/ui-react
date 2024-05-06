@@ -4,5 +4,6 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "types": ["web"]
   },
-  "extends": "../../tsconfig.json"
+  "extends": "../../tsconfig.json",
+  "exclude": ["dist"]
 }

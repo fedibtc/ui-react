@@ -4,10 +4,11 @@
     "packages/*"
   ],
   "scripts": {
-    "format": "bun run --cwd packages/dev format && bun run --cwd packages/api format && bun run --cwd packages/ui format && bun run --cwd packages/theme format",
-    "lint": "bun run --cwd packages/dev lint && bun run --cwd packages/ui lint && bun run --cwd packages/ui lint && bun run --cwd packages/theme lint",
+    "format": "bun run --cwd packages/theme format && bun run --cwd packages/ui format && bun run --cwd packages/dev format",
+    "lint": "bun run --cwd packages/theme lint && bun run --cwd packages/ui lint && bun run --cwd packages/dev lint",
     "dev": "bun run --cwd packages/dev dev",
-    "build": "bun run --cwd packages/theme build && bun run --cwd packages/api && bun run --cwd packages/ui build && bun run --cwd packages/dev build"
+    "build": "bun run --cwd packages/theme build && bun run --cwd packages/ui build",
+    "clean": "bun run --cwd packages/theme clean && bun run --cwd packages/ui clean"
   },
   "devDependencies": {
     "@types/node": "^20.10.3",
