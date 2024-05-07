@@ -21,7 +21,14 @@ export default function RootLayout({
     <html lang="en">
       <body className={albertSans.className}>
         <ToastProvider>
-          <FediInjectionProvider>{children}</FediInjectionProvider>
+          <FediInjectionProvider
+            supportedBitcoinNetworks={{
+              signet: true,
+              bitcoin: false
+            }}
+          >
+            {children}
+          </FediInjectionProvider>
         </ToastProvider>
       </body>
     </html>

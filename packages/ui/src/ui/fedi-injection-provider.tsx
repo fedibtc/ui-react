@@ -2,6 +2,7 @@ import React from "react"
 import {
   ActiveFederationResponse,
   AuthenticatedMemberResponse,
+  BitcoinNetwork,
   FediAPIVersion,
   InjectionFediAPIProvider,
   InjectionNostrProvider,
@@ -10,15 +11,17 @@ import {
 } from "../types/injection"
 import { fediAPIVersion } from "../constants"
 
-type LoadingStatus =
+export type PendingStatus =
   | "checking_injections"
   | "loading_webln"
   | "loading_nostr"
   | "loading_fedi_api"
 
+export type InjectionStatus = PendingStatus | "error" | "success"
+
 interface FediInjectionPending {
   isLoading: true
-  status: LoadingStatus
+  status: PendingStatus
   error: null
   webln: null
   nostr: null
@@ -75,16 +78,23 @@ const FediInjectionContext = React.createContext<FediInjectionValue | null>(
 export function FediInjectionProvider({
   children,
   fediModName,
-  minSupportedAPIVersion = "legacy"
+  minSupportedAPIVersion = "legacy",
+  supportedBitcoinNetworks = {
+    bitcoin: true,
+    signet: true
+  }
 }: {
   children: React.ReactNode
   fediModName?: string
   minSupportedAPIVersion?: FediAPIVersion
+  supportedBitcoinNetworks?: {
+    [K in BitcoinNetwork]?: boolean
+  }
 }) {
   const [isLoading, setIsLoading] = React.useState(true)
-  const [status, setStatus] = React.useState<
-    LoadingStatus | "error" | "success"
-  >("checking_injections")
+  const [status, setStatus] = React.useState<InjectionStatus>(
+    "checking_injections"
+  )
   const [error, setError] = React.useState<Error | null>(null)
 
   const [nostrPubkey, setNostrPubkey] = React.useState<string | null>(null)
@@ -102,9 +112,10 @@ export function FediInjectionProvider({
 
   React.useEffect(() => {
     async function initialize() {
+      const modName = fediModName ?? "This Fedi mod"
       const injectionError = (injection: string) =>
         new Error(
-          `${fediModName ?? "This Fedi mod"} requires ${injection} to function. Please update the Fedi App and try again`
+          `${modName} requires ${injection} to function. Please update the Fedi App and try again`
         )
 
       try {
@@ -115,10 +126,7 @@ export function FediInjectionProvider({
           fediAPIVersion.indexOf(window.fediInternal.version ?? "legacy") <
           fediAPIVersion.indexOf(minSupportedAPIVersion)
         )
-          throw new Error(
-            "Please update the Fedi App to use " +
-              (fediModName ?? "This Fedi mod")
-          )
+          throw new Error("Please update the Fedi App to use " + modName)
 
         // Enable WebLN
         setStatus("loading_webln")
@@ -160,6 +168,12 @@ export function FediInjectionProvider({
         } catch {
           throw new Error(
             "Failed to initialize the Fedi API. Please update the Fedi App and try again."
+          )
+        }
+
+        if (supportedBitcoinNetworks[activeFederation.network] === false) {
+          throw new Error(
+            `The bitcoin network "${activeFederation.network}" is not supported by ${modName}. Please switch to another Federation and try again.`
           )
         }
 
