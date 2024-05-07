@@ -6,10 +6,9 @@
     "clean": "rm -rf dist",
     "build": "rm -rf dist && tsup src/index.ts --dts --format esm,cjs --global-name fediTailwindTheme",
     "prepublishOnly": "bun run clean && bun run build",
-    "publish:release": "npm publish",
-    "publish:beta": "npm publish --tag beta",
-    "format": "prettier --write --ignore-path src/**/*.ts",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit && eslint src --ext .ts,.tsx",
+    "format": "prettier --write src/**/*.ts",
+    "format:check": "prettier --check src/**/*.ts"
   },
   "exports": {
     ".": {

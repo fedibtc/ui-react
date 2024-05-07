@@ -1,17 +1,16 @@
 {
   "name": "@fedibtc/ui",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "UI components for Fedi Mods",
   "scripts": {
     "clean": "rm -rf dist",
     "build:fonts": "cp -r src/fonts dist/",
     "build:css": "tailwindcss -i ./src/components.css -o ./dist/index.css",
     "build": "rm -rf dist && tsup src/index.ts --dts --format esm,cjs && bun run build:css && bun run build:fonts",
-    "lint": "tsc --noEmit && eslint src --ext .ts,.tsx",
     "prepublishOnly": "bun run clean && bun run build",
-    "publish:release": "npm publish",
-    "publish:beta": "npm publish --tag beta",
-    "format": "prettier --write --ignore-path src/**/*.{ts,tsx}"
+    "lint": "tsc --noEmit && eslint src --ext .ts,.tsx",
+    "format": "prettier --write src/**/*.{ts,tsx}",
+    "format:check": "prettier --check src/**/*.{ts,tsx}"
   },
   "exports": {
     ".": {
