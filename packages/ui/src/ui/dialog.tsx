@@ -37,6 +37,10 @@ export interface DialogProps {
    * @default false
    */
   disableClose?: boolean
+  /**
+   * A className to apply to the dialog content.
+   */
+  className?: string
 }
 
 /**
@@ -49,7 +53,8 @@ export const Dialog = ({
   onOpenChange,
   children,
   size = "md",
-  disableClose = false
+  disableClose = false,
+  className
 }: DialogProps) => {
   const handleCloseTrigger = React.useCallback(
     (e: Event) => {
@@ -68,6 +73,7 @@ export const Dialog = ({
             onEscapeKeyDown={handleCloseTrigger}
             onPointerDownOutside={handleCloseTrigger}
             onInteractOutside={handleCloseTrigger}
+            className={className}
           >
             {(title || description) && (
               <DialogHeader>

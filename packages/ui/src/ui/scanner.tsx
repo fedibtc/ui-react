@@ -69,8 +69,16 @@ export function Scanner({
           }
         )
         scannerRef.current.setInversionMode("both")
-        await scannerRef.current.start()
+        const video = ref.current
+        const isPlaying =
+          video.currentTime > 0 &&
+          !video.paused &&
+          !video.ended &&
+          video.readyState > video.HAVE_CURRENT_DATA
+
+        if (!isPlaying) await scannerRef.current.start()
       } else if (scannerRef.current) {
+        scannerRef.current.stop()
         scannerRef.current.destroy()
         res.current = null
         err.current = null
