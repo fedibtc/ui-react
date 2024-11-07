@@ -14,7 +14,7 @@ export type BaseButtonProps = {
    * The variant of the button. Must be one of "primary", "secondary", "tertiary", or "outline".
    * @default "primary"
    */
-  variant?: "primary" | "secondary" | "tertiary" | "outline"
+  variant?: "primary" | "secondary" | "tertiary" | "outline" | "offWhite"
   /**
    * The size of the button. Must be one of "md", "sm", or "xs".
    * @default "md"
@@ -132,6 +132,8 @@ const buttonVariants = variants({
         "bg-white bg-gradient-to-b from-white to-primary/10 shadow-secondary-inset hover:brightness-95 active:brightness-90",
       tertiary:
         "bg-transparent text-primary hover:bg-primary/5 active:bg-primary/10",
+      offWhite:
+        "bg-offWhite text-primary hover:bg-offWhite/80 active:opacity-50",
       outline:
         "bg-transparent text-primary !border-solid !border-2 !border-primary hover:bg-primary/5 active:bg-primary/10"
     },

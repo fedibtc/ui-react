@@ -21,5 +21,7 @@ export const colors = {
   primaryLight: "rgb(109, 112, 113)",
   primaryVeryLight: "rgb(211, 212, 219)",
   success: "rgb(0, 168, 42)",
-  secondary: "rgb(255, 255, 255)"
+  secondary: "rgb(255, 255, 255)",
+  offWhite: "rgb(230, 247, 255)",
+  offWhite100: "rgb(236, 247, 247)"
 }
