@@ -113,7 +113,6 @@ declare function useFediInjectionContext(): {
 | ---------------------------------------------------------------- | ------------------------------------------------------------------ | ---------- |
 | `generateEcash(args: GenerateEcashArgs): Promise<string>`        | Generates Ecash notes                                              | `>=legacy` |
 | `receiveEcash(notes: string): Promise<{ msats: number }>`        | Claims Ecash notes                                                 | `>=legacy` |
-| `getActiveFederation(): Promise<ActiveFederationResponse>`       | Returns the ID, name, and bitcoin network of the active Federation | `>=legacy` |
 | `getAuthenticatedMember(): Promise<AuthenticatedMemberResponse>` | Returns the ID and username of the current Fedi member             | `>=legacy` |
 | `getCurrencyCode: () => Promise<SupportedCurrency>`              | Returns the user's selected three-letter currency code             | `>=0`      |
 | `getLanguageCode: () => Promise<string>`                         | Returns the user's selected two-letter language code               | `>=0`      |

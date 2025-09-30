@@ -7,7 +7,6 @@ export interface FediAPIV0 {
   version: 0
   generateEcash(args: GenerateEcashArgs): Promise<string>
   receiveEcash(notes: string): Promise<{ msats: number }>
-  getActiveFederation(): Promise<ActiveFederationResponse>
   getAuthenticatedMember(): Promise<AuthenticatedMemberResponse>
   getCurrencyCode: () => Promise<SupportedCurrency>
   getLanguageCode: () => Promise<string>
@@ -19,7 +18,6 @@ export interface FediAPILegacy {
   version: undefined
   generateEcash?: FediAPIV0["generateEcash"]
   receiveEcash?: FediAPIV0["receiveEcash"]
-  getActiveFederation?: FediAPIV0["getActiveFederation"]
   getAuthenticatedMember?: FediAPIV0["getAuthenticatedMember"]
   getCurrencyCode?: FediAPIV0["getCurrencyCode"]
   getLanguageCode?: FediAPIV0["getLanguageCode"]

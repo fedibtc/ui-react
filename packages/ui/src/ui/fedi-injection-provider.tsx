@@ -78,11 +78,7 @@ const FediInjectionContext = React.createContext<FediInjectionValue | null>(
 export function FediInjectionProvider({
   children,
   fediModName,
-  minSupportedAPIVersion = "legacy",
-  supportedBitcoinNetworks = {
-    bitcoin: true,
-    signet: true
-  }
+  minSupportedAPIVersion = "legacy"
 }: {
   children: React.ReactNode
   fediModName?: string
@@ -98,8 +94,6 @@ export function FediInjectionProvider({
   const [error, setError] = React.useState<Error | null>(null)
 
   const [nostrPubkey, setNostrPubkey] = React.useState<string | null>(null)
-  const [activeFederation, setActiveFederation] =
-    React.useState<ActiveFederationResponse | null>(null)
   const [authenticatedMember, setAuthenticatedMember] =
     React.useState<AuthenticatedMemberResponse | null>(null)
   const [currencyCode, setCurrencyCode] =
@@ -149,19 +143,16 @@ export function FediInjectionProvider({
 
         // Load Fedi Internal
         setStatus("loading_fedi_api")
-        let activeFederation: ActiveFederationResponse
         let authenticatedMember: AuthenticatedMemberResponse
         let currencyCode: SupportedCurrency
         let languageCode: string
         try {
-          const federation = await window.fediInternal.getActiveFederation?.()
           const member = await window.fediInternal.getAuthenticatedMember?.()
           const currency = await window.fediInternal.getCurrencyCode?.()
           const language = await window.fediInternal.getLanguageCode?.()
 
-          if (!federation || !member) throw new Error()
+          if (!member) throw new Error()
 
-          activeFederation = federation
           authenticatedMember = member
           currencyCode = currency ?? SupportedCurrency.USD
           languageCode = language ?? "en"
@@ -171,18 +162,11 @@ export function FediInjectionProvider({
           )
         }
 
-        if (supportedBitcoinNetworks[activeFederation.network] === false) {
-          throw new Error(
-            `The bitcoin network "${activeFederation.network}" is not supported by ${modName}. Please switch to another Federation and try again.`
-          )
-        }
-
         // Set all Refs and states
         weblnRef.current = window.webln
         nostrRef.current = window.nostr
         fediRef.current = window.fediInternal
         setNostrPubkey(nostrPublicKey)
-        setActiveFederation(activeFederation)
         setAuthenticatedMember(authenticatedMember)
         setCurrencyCode(currencyCode)
         setLanguageCode(languageCode)
@@ -209,7 +193,6 @@ export function FediInjectionProvider({
           nostr: nostrRef.current,
           fedi: fediRef.current,
           nostrPubkey,
-          activeFederation,
           authenticatedMember,
           currencyCode,
           languageCode
