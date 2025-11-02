@@ -10,6 +10,8 @@ export interface FediAPIV0 {
   getAuthenticatedMember(): Promise<AuthenticatedMemberResponse>
   getCurrencyCode: () => Promise<SupportedCurrency>
   getLanguageCode: () => Promise<string>
+  getInstalledFediMods: () => Promise<{ id: string }[]>
+  installFediMod: (mod: InstallFediModArgs) => Promise<void>
 }
 
 export interface FediAPIV1 extends Omit<FediAPIV0, "version"> {
@@ -62,6 +64,8 @@ export interface FediAPILegacy {
   getAuthenticatedMember?: FediAPIV0["getAuthenticatedMember"]
   getCurrencyCode?: FediAPIV0["getCurrencyCode"]
   getLanguageCode?: FediAPIV0["getLanguageCode"]
+  getInstalledFediMods: FediAPIV0["getInstalledFediMods"]
+  installFediMod: FediAPIV0["installFediMod"]
 }
 
 export type RpcCommunity = {
@@ -123,6 +127,14 @@ export interface GenerateEcashArgs {
   defaultAmount?: string | number
   minimumAmount?: string | number
   maximumAmount?: string | number
+}
+
+export interface InstallFediModArgs {
+  name: string
+  id: string
+  url: string,
+  iconUrl: string,
+  description: string,
 }
 
 export type BitcoinNetwork = "signet" | "bitcoin"
