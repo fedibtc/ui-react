@@ -132,7 +132,7 @@ export interface GenerateEcashArgs {
 }
 
 export interface InstallFediModArgs {
-  name: string
+  title: string
   id: string
   url: string,
   iconUrl: string,
