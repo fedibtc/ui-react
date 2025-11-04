@@ -3,6 +3,12 @@ import { SupportedCurrency } from "./currency"
 
 export type FediAPIVersion = (typeof fediAPIVersion)[number]
 
+export interface FediAPIV1 extends Omit<FediAPIV0, 'version'> {
+  version: 1
+  getInstalledFediMods: () => Promise<{ id: string }[]>
+  installFediMod: (mod: InstallFediModArgs) => Promise<void>
+}
+
 export interface FediAPIV0 {
   version: 0
   generateEcash(args: GenerateEcashArgs): Promise<string>
@@ -10,8 +16,6 @@ export interface FediAPIV0 {
   getAuthenticatedMember(): Promise<AuthenticatedMemberResponse>
   getCurrencyCode: () => Promise<SupportedCurrency>
   getLanguageCode: () => Promise<string>
-  getInstalledFediMods: () => Promise<{ id: string }[]>
-  installFediMod: (mod: InstallFediModArgs) => Promise<void>
 }
 
 export interface FediAPIV1 extends Omit<FediAPIV0, "version"> {
@@ -64,8 +68,6 @@ export interface FediAPILegacy {
   getAuthenticatedMember?: FediAPIV0["getAuthenticatedMember"]
   getCurrencyCode?: FediAPIV0["getCurrencyCode"]
   getLanguageCode?: FediAPIV0["getLanguageCode"]
-  getInstalledFediMods: FediAPIV0["getInstalledFediMods"]
-  installFediMod: FediAPIV0["installFediMod"]
 }
 
 export type RpcCommunity = {
