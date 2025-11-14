@@ -3,12 +3,6 @@ import { SupportedCurrency } from "./currency"
 
 export type FediAPIVersion = (typeof fediAPIVersion)[number]
 
-export interface FediAPIV1 extends Omit<FediAPIV0, 'version'> {
-  version: 1
-  getInstalledFediMods: () => Promise<{ id: string }[]>
-  installFediMod: (mod: InstallFediModArgs) => Promise<void>
-}
-
 export interface FediAPIV0 {
   version: 0
   generateEcash(args: GenerateEcashArgs): Promise<string>
@@ -20,9 +14,11 @@ export interface FediAPIV0 {
 
 export interface FediAPIV1 extends Omit<FediAPIV0, "version"> {
   version: 1
+  getInstalledFediMods: () => Promise<{ url: string }[]>
+  installFediMod: (mod: InstallFediModArgs) => Promise<void>
 }
 
-export interface FediAPIV2 extends Omit<FediAPIV0, "version"> {
+export interface FediAPIV2 extends Omit<FediAPIV1, "version"> {
   version: 2
   listCreatedCommunities: () => Promise<{
     communities: RpcCommunity[]
