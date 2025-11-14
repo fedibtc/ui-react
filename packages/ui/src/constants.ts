@@ -1,1 +1,1 @@
-export const fediAPIVersion = ["legacy", 0] as const
+export const fediAPIVersion = ["legacy", 0, 1, 2] as const

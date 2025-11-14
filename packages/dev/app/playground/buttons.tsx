@@ -4,7 +4,13 @@ import { Button } from "@fedibtc/ui"
 
 export default function Buttons() {
   const sizes = ["md", "sm"] as const
-  const variants = ["primary", "secondary", "tertiary", "outline", "offWhite"] as const
+  const variants = [
+    "primary",
+    "secondary",
+    "tertiary",
+    "outline",
+    "offWhite"
+  ] as const
   const [isLoading, setIsLoading] = useState(false)
   const [isDisabled, setIsDisabled] = useState(false)
 
