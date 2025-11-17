@@ -51,6 +51,9 @@ export interface FediAPIV2 extends Omit<FediAPIV0, "version"> {
       }
   >
   selectPublicChats(): Promise<Array<string>>
+  getInstalledMiniApps(): Promise<{ url: string }[]>
+  installMiniApp(request: InstallMiniAppRequest): Promise<void>
+  navigateHome(): Promise<void>
 }
 
 // ! Do not update
@@ -82,7 +85,7 @@ export type RpcCommunityInvite =
     community_uuid_hex: string
   }
 
-export type CreateCommunityRequest = {
+export type CommunityMeta = {
   welcome_message?: string
   name: string
   tos_url?: string
@@ -102,9 +105,18 @@ export type CreateCommunityRequest = {
   }[]
 }
 
+export type CreateCommunityRequest = CommunityMeta
+
 export type EditCommunityRequest = {
   communityId: string
-  editedCommunity: CreateCommunityRequest
+  editedCommunity: CommunityMeta
+}
+
+export interface InstallMiniAppRequest {
+  id: string
+  title: string
+  url: string
+  imageUrl: string
 }
 
 export interface AuthenticatedMemberResponse {
