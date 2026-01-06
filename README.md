@@ -1,4 +1,8 @@
-# Fedi Mod Monorepo
+# ~~Fedi Mod Monorepo~~
+
+**This repository is deprecated and is no longer maintained** - Please refer to the [webln spec](https://www.webln.guide/) and the [NIP07 spec](https://nips.nostr.com/7) if you are interested in building Fedi Mods
+
+---
 
 A monorepo consisting of all the Fedi Mod-specific NPM packages.
 
