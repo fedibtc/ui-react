@@ -74,6 +74,7 @@ const FediInjectionContext = React.createContext<FediInjectionValue | null>(
  * Connects to WebLN, Nostr, and the Fedi API.
  * Loads useful information such as the user's nostr pubkey and the active federation/member info.
  * Provides `webln`, `nostr`, and `fedi` as refs to the corresponding `window` injections.
+ * @deprecated - please use the `window` methods directly instead
  */
 export function FediInjectionProvider({
   children,
